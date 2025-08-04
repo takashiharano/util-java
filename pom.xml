@@ -26,9 +26,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/takashiharano/util.git</connection>
-    <developerConnection>scm:git:ssh://github.com:takashiharano/util.git</developerConnection>
-    <url>https://github.com/takashiharano/util</url>
+    <connection>scm:git:https://github.com/takashiharano/util-java.git</connection>
+    <developerConnection>scm:git:ssh://github.com:takashiharano/util-java.git</developerConnection>
+    <url>https://github.com/takashiharano/util-java</url>
   </scm>
 
   <properties>
