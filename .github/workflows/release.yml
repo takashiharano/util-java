@@ -27,8 +27,6 @@ jobs:
 
       - name: Publish to Maven Central
         run: |
-          mvn --batch-mode -Dgpg.passphrase=$GPG_PASSPHRASE -DperformRelease=true clean deploy
+          mvn --batch-mode -DperformRelease=true clean deploy
         env:
-          MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
