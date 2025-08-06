@@ -15,9 +15,11 @@ public class LoadTest {
     CsvParser parser = new CsvParser();
     try {
       String[][] a = parser.load(path);
-      Log.i(a.length + " records");
-      for (int i = 0; i < a.length; i++) {
-        dump(i + 1, a[i]);
+      if (a != null) {
+        Log.i(a.length + " records");
+        for (int i = 0; i < a.length; i++) {
+          dump(i + 1, a[i]);
+        }
       }
     } catch (Exception e) {
       e.printStackTrace();

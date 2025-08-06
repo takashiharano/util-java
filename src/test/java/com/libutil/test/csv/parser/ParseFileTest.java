@@ -13,7 +13,9 @@ public class ParseFileTest {
 
   public void test1() {
     String csvText = FileUtil.readText("C:/test/csvtest1.csv");
-    test(csvText);
+    if (csvText != null) {
+      test(csvText);
+    }
   }
 
   public void test(String s) {
