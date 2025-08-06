@@ -20,6 +20,6 @@ jobs:
           cache: 'maven'
 
       - name: Publish to Maven Central
-        run: mvn -B clean deploy
+        run: mvn -B clean verify
         env:
           MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
