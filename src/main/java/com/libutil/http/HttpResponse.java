@@ -253,6 +253,9 @@ public class HttpResponse {
    * @return true if the cookie exists; false otherwise
    */
   public boolean hasCookie(String name) {
+    if (cookies == null) {
+      return false;
+    }
     return cookies.has(name);
   }
 
