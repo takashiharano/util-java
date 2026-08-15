@@ -292,7 +292,7 @@ public class Cookie {
 
     if (maxAge != null) {
       sb.append("; ");
-      sb.append("Aax-Age=");
+      sb.append("Max-Age=");
       sb.append(maxAge);
     }
 
