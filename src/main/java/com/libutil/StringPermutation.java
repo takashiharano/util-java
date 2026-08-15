@@ -43,9 +43,11 @@ public class StringPermutation {
   public static long countTotal(String chars, int length) {
     String[] tbl = chars.split("");
     int c = tbl.length;
-    int n = 0;
+    long n = 0;
+    long p = 1;
     for (int i = 1; i <= length; i++) {
-      n += Math.pow(c, i);
+      p *= c;
+      n += p;
     }
     return n;
   }
