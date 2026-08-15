@@ -166,7 +166,7 @@ public class BinUtil {
           b = s.getBytes()[0];
         }
       } else if (i == lastIndex) {
-        if (s == null) {
+        if (e == null) {
           b = (byte) (c % 10 + 0x30);
         } else {
           b = e.getBytes()[0];
