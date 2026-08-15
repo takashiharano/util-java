@@ -127,17 +127,24 @@ public class Randomizer {
    * @return a random character value between min to max
    */
   public static char getChar(int min, int max) {
+    if (min < 0) {
+      min = 0;
+    } else if (min > 0xFFFF) {
+      min = 0xFFFF;
+    }
+
+    if (max < 0) {
+      max = 0;
+    } else if (max > 0xFFFF) {
+      max = 0xFFFF;
+    }
+
     if (min > max) {
-      int w = min;
+      int w = max;
       max = min;
       min = w;
     }
-    if (min < 0) {
-      min = 0;
-    }
-    if (max > 0xFFFF) {
-      max = 0xFFFF;
-    }
+
     return (char) getInt(min, max);
   }
 

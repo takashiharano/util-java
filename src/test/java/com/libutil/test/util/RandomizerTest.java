@@ -16,7 +16,14 @@ public class RandomizerTest {
     Log.i("double    = " + Randomizer.getDouble());
     Log.i("boolean   = " + Randomizer.getBoolean());
     Log.i("char      = " + Randomizer.getChar());
+
     char ch = Randomizer.getChar(0x21, 0x7E);
+    Log.i("char      = " + ch + " (" + (int) (ch) + ")");
+
+    ch = Randomizer.getChar(0x41, 0x5A);
+    Log.i("char      = " + ch + " (" + (int) (ch) + ")");
+
+    ch = Randomizer.getChar(0x5A, 0x41);
     Log.i("char      = " + ch + " (" + (int) (ch) + ")");
 
     String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
