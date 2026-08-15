@@ -505,7 +505,7 @@ public class BinUtil {
         int limitPlusLast = limit + lastBytes;
         if (len > limitPlusLast) {
           dumpLen = limit;
-          lastStartPos = len - lastBytes - 1;
+          lastStartPos = len - lastBytes;
         } else {
           dumpLen = len;
         }
@@ -561,10 +561,6 @@ public class BinUtil {
       }
     }
 
-    if (lineBreakPos > 0) {
-      sb.append("\n");
-    }
-
     return sb.toString();
   }
 
@@ -616,7 +612,7 @@ public class BinUtil {
         int limitPlusLast = limit + lastBytes;
         if (len > limitPlusLast) {
           dumpLen = limit;
-          lastStartPos = len - lastBytes - 1;
+          lastStartPos = len - lastBytes;
         } else {
           dumpLen = len;
         }
@@ -635,9 +631,10 @@ public class BinUtil {
     StringBuilder sb = new StringBuilder();
     int len = src.length;
 
-    int col = 0;
     for (int i = 0; i < dumpLen; i++) {
-      if (col > 0) {
+      if ((i > 0) && (lineBreakPos > 0) && (i % lineBreakPos == 0)) {
+        sb.append('\n');
+      } else if (i > 0) {
         sb.append(' ');
       }
 
@@ -657,23 +654,20 @@ public class BinUtil {
         offset = '7';
       }
       sb.append((char) (offset + lowerBits));
-
-      if ((lineBreakPos > 0) && (((i + 1) % lineBreakPos) == 0)) {
-        sb.append("\n");
-        col = 0;
-      } else {
-        col++;
-      }
     }
 
     if (((dumpLen > 0) && (lastStartPos > 0)) || ((limit < 0) && (len > lastBytes))) {
       sb.append(" ..");
+      if ((lastStartPos > 0) && (lastStartPos < len)) {
+        sb.append(' ');
+      }
     }
 
     if (lastStartPos > 0) {
-      col = 0;
       for (int i = lastStartPos; i < len; i++) {
-        if (col > 0) {
+        if ((i > lastStartPos) && (lineBreakPos > 0) && (i % lineBreakPos == 0)) {
+          sb.append('\n');
+        } else if (i > lastStartPos) {
           sb.append(' ');
         }
 
@@ -693,18 +687,7 @@ public class BinUtil {
           offset = '7';
         }
         sb.append((char) (offset + lowerBits));
-
-        if ((lineBreakPos > 0) && (((i + 1) % lineBreakPos) == 0)) {
-          sb.append("\n");
-          col = 0;
-        } else {
-          col++;
-        }
       }
-    }
-
-    if (col > 0) {
-      sb.append("\n");
     }
 
     return sb.toString();
