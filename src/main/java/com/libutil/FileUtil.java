@@ -84,9 +84,17 @@ public class FileUtil {
    *           If an I/O error occurs
    */
   public static void appendLine(String path, String newLine, int maxLines) throws IOException {
+    if (maxLines == 0) {
+      try (FileOutputStream fos = new FileOutputStream(path, true); OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8"); BufferedWriter bw = new BufferedWriter(osw)) {
+        bw.write(newLine);
+        bw.write(LINE_SEPARATOR);
+      }
+      return;
+    }
+
     String[] lines = readTextAsArray(path);
     int start = 0;
-    if ((maxLines > 0) && (lines.length >= maxLines)) {
+    if (lines.length >= maxLines) {
       start = lines.length - (maxLines - 1);
     }
 
