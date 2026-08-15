@@ -175,7 +175,7 @@ public class BinUtil {
         b = (byte) (c % 10 + 0x30);
       }
       bytes[i] = b;
-      if ((indexOfLineBreak != 0) && ((c % indexOfLineBreak) == 0)) {
+      if ((indexOfLineBreak != 0) && ((c % indexOfLineBreak) == 0) && (i < lastIndex)) {
         i++;
         bytes[i] = 0x0A;
       }
