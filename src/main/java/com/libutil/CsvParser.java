@@ -129,7 +129,7 @@ public class CsvParser {
         }
       } else if (separator.equals(c) || "\n".equals(c)) {
         if (enveloped == 1) {
-          if (!isQuotedPropery(csvText, len, i, quotCount)) {
+          if (!isQuotedProperly(csvText, len, i, quotCount)) {
             enveloped = 0;
           }
         }
@@ -203,7 +203,7 @@ public class CsvParser {
         }
       } else if (separator.equals(c)) {
         if (enveloped == 1) {
-          if (!isQuotedPropery(csvText, len, i, quotCount)) {
+          if (!isQuotedProperly(csvText, len, i, quotCount)) {
             enveloped = 0;
           }
         }
@@ -307,7 +307,7 @@ public class CsvParser {
     return false;
   }
 
-  private boolean isQuotedPropery(String s, int len, int pos, int quotCount) {
+  private boolean isQuotedProperly(String s, int len, int pos, int quotCount) {
     if (quotCount % 2 == 0) {
       if (pos + 1 < len) {
         String lastCh = String.valueOf(s.charAt(pos - 1));
