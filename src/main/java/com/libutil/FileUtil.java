@@ -26,7 +26,6 @@ package com.libutil;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -900,13 +899,14 @@ public class FileUtil {
     if (!file.exists()) {
       return null;
     }
-    byte[] content = new byte[(int) file.length()];
-    try (FileInputStream fis = new FileInputStream(file)) {
-      @SuppressWarnings("unused")
-      int readSize = fis.read(content, 0, content.length);
+
+    byte[] content;
+    try {
+      content = Files.readAllBytes(file.toPath());
     } catch (IOException ioe) {
       content = null;
     }
+
     return content;
   }
 
