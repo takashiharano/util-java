@@ -276,27 +276,6 @@ public class HttpRequest {
     this.redirect = redirect;
   }
 
-  /**
-   * Join the base URL and a given path.<br>
-   * The URL will be BASE_URL/PATH
-   *
-   * @param path
-   *          path to append
-   */
-  public void joinPath(String path) {
-    UrlUtil.joinPath(url, path);
-  }
-
-  /**
-   * Appends a query string to the base URL.<br>
-   * 
-   * @param q
-   *          query string to append
-   */
-  public void appendQuery(String q) {
-    UrlUtil.appendQuery(url, q);
-  }
-
   private boolean isWritableMethod(String method) {
     if ("POST".equals(method) || "PUT".equals(method) || "DELETE".equals(method)) {
       return true;
