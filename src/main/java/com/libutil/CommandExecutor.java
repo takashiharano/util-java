@@ -113,7 +113,9 @@ public class CommandExecutor {
     } else if ("Linux".equals(osName)) {
       interpreter = "/bin/sh";
       option = "-c";
-      charset = DEFAULT_CHARSET_LINUX;
+      if (charset == null) {
+        charset = DEFAULT_CHARSET_LINUX;
+      }
     } else {
       throw new Exception("Unknown OS. os.name = " + osName);
     }
@@ -134,7 +136,7 @@ public class CommandExecutor {
    *           If an error occurs
    */
   public static String exec(String[] command) throws Exception {
-    return exec(command, null);
+    return exec(command, getDefaultCharset());
   }
 
   /**
@@ -268,6 +270,34 @@ public class CommandExecutor {
    *
    * @param command
    *          a string array containing the program and its arguments
+   * @return command result
+   * @throws Exception
+   *           If an error occurs
+   */
+  public String execCommand(String[] command) throws Exception {
+    return execCommand(command, null, 0, null);
+  }
+
+  /**
+   * Execute a command.
+   *
+   * @param command
+   *          a string array containing the program and its arguments
+   * @param charset
+   *          charset name
+   * @return command result
+   * @throws Exception
+   *           If an error occurs
+   */
+  public String execCommand(String[] command, String charset) throws Exception {
+    return execCommand(command, charset, 0, null);
+  }
+
+  /**
+   * Execute a command.
+   *
+   * @param command
+   *          a string array containing the program and its arguments
    * @param charset
    *          charset name
    * @param timeout
@@ -282,6 +312,10 @@ public class CommandExecutor {
     InputStream inpStream = null;
     InputStream errStream = null;
     OutputStream outStream = null;
+
+    if (charset == null) {
+      charset = getDefaultCharset();
+    }
 
     ProcessBuilder pb = new ProcessBuilder(command);
     pb.redirectErrorStream(true);
@@ -347,6 +381,16 @@ public class CommandExecutor {
    */
   public int getExitStatus() {
     return process.exitValue();
+  }
+
+  private static String getDefaultCharset() {
+    String osName = System.getProperty("os.name").toLowerCase();
+
+    if (osName.startsWith("windows")) {
+      return DEFAULT_CHARSET_WINDOWS;
+    }
+
+    return DEFAULT_CHARSET_LINUX;
   }
 
 }
