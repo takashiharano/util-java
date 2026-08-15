@@ -23,6 +23,7 @@
  */
 package com.libutil.http;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -35,7 +36,6 @@ import java.net.URL;
 import java.util.Map.Entry;
 
 import com.libutil.Base64Util;
-import com.libutil.BinUtil;
 
 /**
  * The class HttpRequest represents a HTTP request.
@@ -294,26 +294,15 @@ public class HttpRequest {
    *           If an I/O error occurs
    */
   private byte[] readStream(InputStream is) throws IOException {
-    byte[] buf = null;
     byte[] b = new byte[1048576];
-    int size = 0;
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
     int readSize;
-    byte[] wkBuf = null;
     while ((readSize = is.read(b)) != -1) {
-      int offset = 0;
-      if (buf != null) {
-        wkBuf = new byte[size];
-        BinUtil.copyByteArray(buf, wkBuf, 0, buf.length);
-      }
-      offset = size;
-      size += readSize;
-      buf = new byte[size];
-      if (wkBuf != null) {
-        BinUtil.copyByteArray(wkBuf, buf, 0, wkBuf.length);
-      }
-      BinUtil.copyByteArray(b, buf, offset, readSize);
+      baos.write(b, 0, readSize);
     }
-    return buf;
+
+    return baos.toByteArray();
   }
 
   private HttpResponse send(String data, HttpResponse response) {
