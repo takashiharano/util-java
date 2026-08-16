@@ -166,7 +166,7 @@ public class CsvParser {
       storeRow(rows, cols);
     }
 
-    String[][] arrRows = new String[rows.size()][cols.size()];
+    String[][] arrRows = new String[rows.size()][];
     int size = rows.size();
     for (i = 0; i < size; i++) {
       List<String> row = rows.get(i);
