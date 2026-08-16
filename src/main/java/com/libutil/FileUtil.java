@@ -199,14 +199,19 @@ public class FileUtil {
     File destFile = new File(dest);
 
     boolean hasError = false;
-
     if (srcFile.isDirectory()) {
       if (destFile.isFile()) {
         return false;
       }
 
-      String srcDirAbsPath = srcFile.getAbsolutePath();
+      if (!destFile.exists()) {
+        boolean created = destFile.mkdirs();
+        if (!created) {
+          return false;
+        }
+      }
 
+      String srcDirAbsPath = srcFile.getAbsolutePath();
       String[] fileNameList = listDirFileNames(src);
       for (int i = 0; i < fileNameList.length; i++) {
         String fileName = fileNameList[i];
@@ -217,8 +222,7 @@ public class FileUtil {
           hasError = true;
         }
       }
-
-      return (hasError ? false : true);
+      return !hasError;
     } else {
       return copyOne(src, dest, replaceExisting);
     }
