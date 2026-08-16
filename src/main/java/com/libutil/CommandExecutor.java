@@ -334,10 +334,12 @@ public class CommandExecutor {
       if (timeout <= 0) {
         p.waitFor();
       } else {
-        p.waitFor(timeout, TimeUnit.SECONDS);
+        boolean finished = p.waitFor(timeout, TimeUnit.SECONDS);
+        if (!finished) {
+          p.destroy();
+        }
       }
 
-      p.destroy();
       t1.join();
 
       String out = outGobbler.getResult(charset);
