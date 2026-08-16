@@ -65,13 +65,17 @@ public class StringPermutation {
     int len = pattern.length();
     int rdx = chars.length();
     long idx = 0;
+    long p = 1;
+
     for (int i = 0; i < len; i++) {
       int d = len - i - 1;
       String c = pattern.substring(d, d + 1);
       int v = chars.indexOf(c) + 1;
-      long n = v * (long) Math.pow(rdx, i);
+      long n = v * p;
       idx += n;
+      p *= rdx;
     }
+
     return idx;
   }
 
