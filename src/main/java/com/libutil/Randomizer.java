@@ -62,12 +62,25 @@ public class Randomizer {
    * @return a random integer value between min to max
    */
   public static int getInt(int min, int max) {
-    int i;
-    max++;
+    if (min > max) {
+      int tmp = min;
+      min = max;
+      max = tmp;
+    }
+
+    long range = (long) max - min + 1;
+
+    if (range <= Integer.MAX_VALUE) {
+      int v = min + r.nextInt((int) range);
+      return v;
+    }
+
+    int v;
     do {
-      i = r.nextInt(max);
-    } while (i < min);
-    return i;
+      v = r.nextInt();
+    } while (v < min || v > max);
+
+    return v;
   }
 
   /**
