@@ -802,8 +802,26 @@ public class JsonBuilder {
   }
 
   private static String _quoteAndEscape(String value) {
-    value = value.replace("\\", "\\\\").replace("\r\n", "\\r\\n").replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t");
-    value = StrUtil.quote(value);
+    StringBuilder sb = new StringBuilder();
+
+    for (int i = 0; i < value.length(); i++) {
+      char c = value.charAt(i);
+
+      if (c == '\\') {
+        sb.append("\\\\");
+      } else if (c <= 0x1f) {
+        sb.append("\\u");
+        String hex = Integer.toHexString(c);
+        for (int j = hex.length(); j < 4; j++) {
+          sb.append("0");
+        }
+        sb.append(hex);
+      } else {
+        sb.append(c);
+      }
+    }
+
+    value = StrUtil.quote(sb.toString());
     return value;
   }
 
