@@ -114,7 +114,6 @@ public class Props {
           value = decodeEscaped5c(valBuf.toString());
           properties.put(key, value);
         }
-        valBuf.append(value);
         continue;
       }
 
@@ -166,9 +165,9 @@ public class Props {
   }
 
   private String decodeEscaped(String s) {
-    s = s.replaceAll("[^\\\\]\\\\r", "\r");
-    s = s.replaceAll("[^\\\\]\\\\n", "\n");
-    s = s.replaceAll("[^\\\\]\\\\t", "\t");
+    s = s.replaceAll("(^|[^\\\\])\\\\r", "$1\r");
+    s = s.replaceAll("(^|[^\\\\])\\\\n", "$1\n");
+    s = s.replaceAll("(^|[^\\\\])\\\\t", "$1\t");
     return s;
   }
 
