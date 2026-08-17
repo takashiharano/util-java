@@ -214,7 +214,7 @@ public class BinUtil {
     }
     int dumpLen = ((byteLength > limit) ? limit : byteLength);
     if (dumpLen % 0x10 != 0) {
-      dumpLen = (((dumpLen / 0x10) + 1) | 0) * 0x10;
+      dumpLen = ((dumpLen / 0x10) + 1) * 0x10;
     }
     int lastPartLen = 0x10 * lastRows;
 
@@ -285,7 +285,7 @@ public class BinUtil {
     }
     int dumpLen = ((byteLength > limit) ? limit : byteLength);
     if (dumpLen % 0x10 != 0) {
-      dumpLen = (((dumpLen / 0x10) + 1) | 0) * 0x10;
+      dumpLen = ((dumpLen / 0x10) + 1) * 0x10;
     }
     int lastPartLen = 0x10 * lastRows;
 
