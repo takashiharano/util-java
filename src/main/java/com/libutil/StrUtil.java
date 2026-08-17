@@ -957,6 +957,7 @@ public class StrUtil {
     if (str == null) {
       return null;
     }
+
     int padLen = len - str.length();
     if (padLen <= 0) {
       if (align) {
@@ -964,8 +965,20 @@ public class StrUtil {
       }
       return str;
     }
-    String pd = repeat(pad, padLen);
-    StringBuilder sb = new StringBuilder(pd);
+
+    if (pad.isEmpty()) {
+      return str;
+    }
+
+    StringBuilder sb = new StringBuilder(len);
+    while (sb.length() < padLen) {
+      sb.append(pad);
+    }
+
+    if (sb.length() > padLen) {
+      sb.setLength(padLen);
+    }
+
     sb.append(str);
     return sb.toString();
   }
@@ -1527,6 +1540,7 @@ public class StrUtil {
     if (str == null) {
       return null;
     }
+
     int padLen = len - str.length();
     if (padLen <= 0) {
       if (align) {
@@ -1534,9 +1548,22 @@ public class StrUtil {
       }
       return str;
     }
-    String pd = repeat(pad, padLen);
-    StringBuilder sb = new StringBuilder(str);
-    sb.append(pd);
+
+    if (pad.isEmpty()) {
+      return str;
+    }
+
+    StringBuilder sb = new StringBuilder(len);
+    sb.append(str);
+
+    while (sb.length() < len) {
+      sb.append(pad);
+    }
+
+    if (sb.length() > len) {
+      sb.setLength(len);
+    }
+
     return sb.toString();
   }
 

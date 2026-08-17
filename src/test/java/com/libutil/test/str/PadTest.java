@@ -14,6 +14,10 @@ public class PadTest {
     leftPadTest("abc", " ", 4);
     leftPadTest("abc", " ", 5);
 
+    leftPadTest("abc", "01", 4);
+    leftPadTest("abc", "01", 5);
+    leftPadTest("abc", "01", 6);
+
     Log.i("leftPad(align=true) ----");
     // leftPadTest2("abc", " ", -1); // StringIndexOutOfBoundsException
     leftPadTest2("abc", " ", 0);
@@ -29,6 +33,10 @@ public class PadTest {
     rightPadTest("abc", " ", 3);
     rightPadTest("abc", " ", 4);
     rightPadTest("abc", " ", 5);
+
+    rightPadTest("abc", "01", 3);
+    rightPadTest("abc", "01", 4);
+    rightPadTest("abc", "01", 5);
 
     Log.i("rightPad(align=true) ----");
     // rightPadTest2("abc", " ", -1); // StringIndexOutOfBoundsException
