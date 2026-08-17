@@ -26,10 +26,20 @@ public class SplitKeywordsTest {
     test("");
     test(" ");
     test(null);
+
+    test("aaa bbb ccc", -1);
+    test("aaa bbb ccc", 1);
+    test("aaa bbb ccc", 2);
+    test("aaa bbb ccc", 3);
+    test("aaa bbb ccc", 4);
   }
 
   private static void test(String src) {
-    String[] keywords = StrUtil.splitKeywords(src, 0);
+    test(src, 0);
+  }
+
+  private static void test(String src, int limit) {
+    String[] keywords = StrUtil.splitKeywords(src, limit);
     Log.i("----------");
     Log.i("src=[" + src + "]");
     for (int i = 0; i < keywords.length; i++) {

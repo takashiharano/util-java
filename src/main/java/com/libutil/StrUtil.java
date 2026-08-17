@@ -1930,6 +1930,12 @@ public class StrUtil {
     if (src == null) {
       return new String[0];
     }
+
+    if (limit == 1) {
+      String[] ret = { src };
+      return ret;
+    }
+
     List<String> keywords = new ArrayList<>();
     int start = 0;
     int len = 0;
