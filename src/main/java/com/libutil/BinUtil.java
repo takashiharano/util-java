@@ -425,12 +425,7 @@ public class BinUtil {
       if (addr < buf.length) {
         byte b = buf[addr];
         if ((b >= 0x20) && (b <= 0x7E)) {
-          try {
-            String ch = new String(buf, addr, 1, "UTF-8");
-            sb.append(ch);
-          } catch (Exception e) {
-            sb.append(".");
-          }
+          sb.append((char) b);
         } else {
           sb.append(".");
         }
