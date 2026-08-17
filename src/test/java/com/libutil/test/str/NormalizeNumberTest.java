@@ -84,9 +84,17 @@ public class NormalizeNumberTest {
     test("+.1", "0.1");
     test("+.10", "0.1");
 
+    test(" 123 ", "123");
+    test(" 01230 ", "1230");
+    test(" 01.20 ", "1.2");
+
     test(null, null);
     test("", "");
     test("abc", "abc");
+    test(".", ".");
+    test("+", "+");
+    test("-", "-");
+    test("1a.2", "1a.2");
     test("1.2.3", "1.2.3");
   }
 

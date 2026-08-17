@@ -1112,6 +1112,10 @@ public class StrUtil {
       return n;
     }
 
+    if (!s.matches("^[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)$")) {
+      return n;
+    }
+
     boolean sign = false;
     if (s.charAt(0) == '-') {
       sign = true;
