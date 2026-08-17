@@ -29,7 +29,7 @@ package com.libutil;
 public class TextBuffer {
 
   private StringBuilder buf;
-  private String lineseparator = "\n";
+  private String lineSeparator = "\n";
 
   /**
    * Constructs a string builder with no characters in it and an initial capacity
@@ -56,12 +56,12 @@ public class TextBuffer {
    *
    * @param capacity
    *          the initial capacity
-   * @param lineseparator
+   * @param lineSeparator
    *          line separator
    */
-  public TextBuffer(int capacity, String lineseparator) {
+  public TextBuffer(int capacity, String lineSeparator) {
     this.buf = new StringBuilder(capacity);
-    this.lineseparator = lineseparator;
+    this.lineSeparator = lineSeparator;
   }
 
   /**
@@ -81,12 +81,12 @@ public class TextBuffer {
    *
    * @param str
    *          the initial contents of the buffer
-   * @param lineseparator
+   * @param lineSeparator
    *          line separator
    */
-  public TextBuffer(String str, String lineseparator) {
+  public TextBuffer(String str, String lineSeparator) {
     this.buf = new StringBuilder(str);
-    this.lineseparator = lineseparator;
+    this.lineSeparator = lineSeparator;
   }
 
   /**
@@ -207,7 +207,7 @@ public class TextBuffer {
    * @return a reference to this object.
    */
   public TextBuffer appendln() {
-    buf.append(lineseparator);
+    buf.append(lineSeparator);
     return this;
   }
 
@@ -221,7 +221,7 @@ public class TextBuffer {
    */
   public TextBuffer appendln(boolean b) {
     buf.append(b);
-    buf.append(lineseparator);
+    buf.append(lineSeparator);
     return this;
   }
 
@@ -235,7 +235,7 @@ public class TextBuffer {
    */
   public TextBuffer appendln(char c) {
     buf.append(c);
-    buf.append(lineseparator);
+    buf.append(lineSeparator);
     return this;
   }
 
@@ -249,7 +249,7 @@ public class TextBuffer {
    */
   public TextBuffer appendln(char[] str) {
     buf.append(str);
-    buf.append(lineseparator);
+    buf.append(lineSeparator);
     return this;
   }
 
@@ -263,7 +263,7 @@ public class TextBuffer {
    */
   public TextBuffer appendln(double d) {
     buf.append(d);
-    buf.append(lineseparator);
+    buf.append(lineSeparator);
     return this;
   }
 
@@ -277,7 +277,7 @@ public class TextBuffer {
    */
   public TextBuffer appendln(float f) {
     buf.append(f);
-    buf.append(lineseparator);
+    buf.append(lineSeparator);
     return this;
   }
 
@@ -291,7 +291,7 @@ public class TextBuffer {
    */
   public TextBuffer appendln(long lng) {
     buf.append(lng);
-    buf.append(lineseparator);
+    buf.append(lineSeparator);
     return this;
   }
 
@@ -304,7 +304,7 @@ public class TextBuffer {
    */
   public TextBuffer appendln(Object obj) {
     buf.append(obj);
-    buf.append(lineseparator);
+    buf.append(lineSeparator);
     return this;
   }
 
@@ -317,7 +317,7 @@ public class TextBuffer {
    */
   public TextBuffer appendln(String str) {
     buf.append(str);
-    buf.append(lineseparator);
+    buf.append(lineSeparator);
     return this;
   }
 
@@ -444,7 +444,7 @@ public class TextBuffer {
    * @return a reference to this object.
    */
   public TextBuffer newLine() {
-    buf.append(lineseparator);
+    buf.append(lineSeparator);
     return this;
   }
 
@@ -455,7 +455,7 @@ public class TextBuffer {
    *          The line separator string
    */
   public void setLineSeparator(String sep) {
-    this.lineseparator = sep;
+    this.lineSeparator = sep;
   }
 
   /**
