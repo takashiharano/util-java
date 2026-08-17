@@ -6,12 +6,12 @@ import com.libutil.test.Log;
 public class ExtractQuotedStringTest {
 
   public static void main(String args[]) {
-    test("\"aaa\"", "\"");
-    test("'aaa'", "'");
+    test("\"abc\"", "\"");
+    test("'abc'", "'");
 
-    test("aaa\"bbb\"", "\"");
+    test("abc\"xyz\"", "\"");
 
-    test("(aaa)", "(", ")");
+    test("(abc)", "(", ")");
 
     test("", "\"");
     test(" ", "\"");

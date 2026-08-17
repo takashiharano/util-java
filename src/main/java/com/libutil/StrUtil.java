@@ -2011,7 +2011,7 @@ public class StrUtil {
    * @return the string inside the quotes
    */
   public static String extractQuotedString(String s) {
-    return extractQuotedString(s, (char) 0x22, (char) 0);
+    return extractQuotedString(s, '"');
   }
 
   /**
@@ -2024,7 +2024,8 @@ public class StrUtil {
    * @return the string inside the quotes
    */
   public static String extractQuotedString(String s, String q) {
-    return extractQuotedString(s, q.charAt(0), (char) 0);
+    char c = q.charAt(0);
+    return extractQuotedString(s, c);
   }
 
   /**
