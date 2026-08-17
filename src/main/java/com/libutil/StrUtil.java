@@ -63,7 +63,7 @@ public class StrUtil {
   public static String arrayToText(String[] arr, String lineSeparator) {
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < arr.length; i++) {
-      sb.append(arr[i] + lineSeparator);
+      sb.append(arr[i]).append(lineSeparator);
     }
     return sb.toString();
   }
