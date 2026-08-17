@@ -348,8 +348,6 @@ public class CommandExecutor {
         result.append(out);
       }
       return result.toString();
-    } catch (Exception e) {
-      throw e;
     } finally {
       if (inpStream != null) {
         inpStream.close();
