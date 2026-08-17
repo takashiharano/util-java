@@ -93,7 +93,7 @@ public class Cookie {
   /**
    * Returns the cookie-value.
    *
-   * @return cookie-name
+   * @return cookie-value
    */
   public String getValue() {
     return value;
@@ -172,8 +172,7 @@ public class Cookie {
   /**
    * Returns the Path Attribute value.
    *
-   * @return the Domain Attribute value. if the attribute does not exist, returns
-   *         null.
+   * @return the Path Attribute value
    */
   public String getPath() {
     return path;
