@@ -352,7 +352,7 @@ public class StrUtil {
     if ((s1 == null) || (s2 == null)) {
       return false;
     }
-    return s1.toLowerCase().equals(s2.toLowerCase());
+    return s1.equalsIgnoreCase(s2);
   }
 
   /**

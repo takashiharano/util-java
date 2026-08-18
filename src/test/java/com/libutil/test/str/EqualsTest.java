@@ -9,6 +9,9 @@ public class EqualsTest {
     Log.i("equals() ----");
     test("abc", "abc");
     test(null, null);
+    test("ABC", "abc");
+    test("abc", "ABC");
+    test("Abc", "abc");
     test("abc", "Abc");
     test("abc", null);
     test(null, "abc");
@@ -17,6 +20,9 @@ public class EqualsTest {
     Log.i("equalsIgnoreCase() ----");
     testIgnoreCase("abc", "abc");
     testIgnoreCase(null, null);
+    testIgnoreCase("ABC", "abc");
+    testIgnoreCase("abc", "ABC");
+    testIgnoreCase("Abc", "abc");
     testIgnoreCase("abc", "Abc");
     testIgnoreCase("abc", null);
     testIgnoreCase(null, "abc");
