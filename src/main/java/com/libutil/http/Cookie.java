@@ -239,13 +239,13 @@ public class Cookie {
       String s = w[i];
 
       if (i == 0) {
-        String[] nv = s.split("=", -1);
+        String[] nv = s.split("=", 2);
         this.setName(nv[0]);
         this.setValue(nv[1]);
         continue;
       }
 
-      String[] prt = s.split("=", -1);
+      String[] prt = s.split("=", 2);
       String name = prt[0];
       String value = null;
       if (prt.length >= 2) {
