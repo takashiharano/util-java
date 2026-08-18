@@ -2405,7 +2405,7 @@ public class StrUtil {
     if (s == null) {
       return s;
     }
-    return (s + "").replaceAll("^([^0]*)0+(.+)$", "$1$2");
+    return s.replaceAll("^([^0]*)0+(.+)$", "$1$2");
   }
 
   /**
@@ -2419,7 +2419,7 @@ public class StrUtil {
     if (s == null) {
       return s;
     }
-    return (s + "").replaceAll("(.+?)0*$", "$1");
+    return s.replaceAll("(.+?)0*$", "$1");
   };
 
   /**
