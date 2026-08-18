@@ -3,7 +3,7 @@ package com.libutil.test.bin;
 import com.libutil.BinUtil;
 import com.libutil.test.Log;
 
-public class FromHexStringlTest {
+public class FromHexStringTest {
 
   public static void main(String args[]) {
     Log.d(BinUtil.fromHexString("  01  02    03 04 FF "));

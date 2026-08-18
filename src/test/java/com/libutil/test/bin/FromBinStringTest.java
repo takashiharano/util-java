@@ -3,7 +3,7 @@ package com.libutil.test.bin;
 import com.libutil.BinUtil;
 import com.libutil.test.Log;
 
-public class FromBinStringlTest {
+public class FromBinStringTest {
 
   public static void main(String args[]) {
     Log.d(BinUtil.fromBinString("01000001 01000010 01000011"));
