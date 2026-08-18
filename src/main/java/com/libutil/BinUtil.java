@@ -352,8 +352,8 @@ public class BinUtil {
   private static String dumpAddr(int addr) {
     String hexAddr = Integer.toHexString(addr).toUpperCase();
     String adr = ("0000000" + hexAddr);
-    String baseAdddr = adr.substring((adr.length() - 8), adr.length());
-    return baseAdddr + " : ";
+    String baseAddr = adr.substring((adr.length() - 8), adr.length());
+    return baseAddr + " : ";
   }
 
   private static String dump16BytesHex(byte[] buf, int startAddr) {
