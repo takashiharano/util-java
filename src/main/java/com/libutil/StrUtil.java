@@ -1473,7 +1473,7 @@ public class StrUtil {
    * @return the replaced string
    */
   public static String removeSpaceNewline(String str) {
-    return str.replaceAll("\\s", "").replaceAll("\\r\\n|\\r|\\n", "");
+    return str.replaceAll("\\s", "");
   }
 
   /**
