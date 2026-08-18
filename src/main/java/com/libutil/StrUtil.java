@@ -628,7 +628,7 @@ public class StrUtil {
   }
 
   /**
-   * Integer to Decimal formated string.<br>
+   * Integer to Decimal formatted string.<br>
    * 1000, 3 to 1.000<br>
    * 1, 3 to 0.001
    *
@@ -636,7 +636,7 @@ public class StrUtil {
    *          number
    * @param scale
    *          scale
-   * @return Decimal formated string
+   * @return Decimal formatted string
    */
   public static String intNumToDecimal(long number, int scale) {
     if (number == 0) {
