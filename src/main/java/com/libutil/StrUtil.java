@@ -2232,7 +2232,7 @@ public class StrUtil {
    * @return the converted string
    */
   public static String toFullWidth(String s) {
-    StringBuffer sb = new StringBuffer(s);
+    StringBuilder sb = new StringBuilder(s);
     for (int i = 0, len = sb.length(); i < len; i++) {
       char c = sb.charAt(i);
       if (c >= '!' && c <= '~') {
@@ -2252,7 +2252,7 @@ public class StrUtil {
    * @return the converted string
    */
   public static String toHalfWidth(String s) {
-    StringBuffer sb = new StringBuffer(s);
+    StringBuilder sb = new StringBuilder(s);
     for (int i = 0, len = sb.length(); i < len; i++) {
       char c = sb.charAt(i);
       if (c >= '！' && c <= '～') {
