@@ -6,7 +6,7 @@ import com.libutil.BinUtil;
 import com.libutil.FileUtil;
 import com.libutil.test.Log;
 
-public class ToHBinStringTest {
+public class ToBinStringTest {
 
   public static void main(String args[]) {
     dumpBytesTest();
