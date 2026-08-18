@@ -439,7 +439,7 @@ public class TextBuffer {
   }
 
   /**
-   * Appends a line feed to this sequence.
+   * Appends the line separator to this sequence.
    *
    * @return a reference to this object.
    */
