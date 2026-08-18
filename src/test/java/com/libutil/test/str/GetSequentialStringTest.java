@@ -37,6 +37,9 @@ public class GetSequentialStringTest {
 
     s = StrUtil.getSequentialString(16, "!", "#", 5);
     Log.d(s);
+
+    s = StrUtil.getSequentialString(10, "あ", "ん");
+    Log.d(s);
   }
 
 }

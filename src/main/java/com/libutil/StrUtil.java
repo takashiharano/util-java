@@ -542,34 +542,40 @@ public class StrUtil {
    * @return the string
    */
   public static String getSequentialString(int len, String s, String e, int indexOfLineBreak) {
-    byte[] bytes = new byte[len];
+    char[] chars = new char[len];
     int lastIndex = len - 1;
-    byte b;
+    char ch;
     int c = 0;
+
     for (int i = 0; i < len; i++) {
       c++;
+
       if (i == 0) {
         if (s == null) {
-          b = 0x31;
+          ch = '1';
         } else {
-          b = s.getBytes()[0];
+          ch = s.charAt(0);
         }
       } else if (i == lastIndex) {
         if (e == null) {
-          b = (byte) (c % 10 + 0x30);
+          ch = (char) (c % 10 + '0');
         } else {
-          b = e.getBytes()[0];
+          ch = e.charAt(0);
         }
       } else {
-        b = (byte) (c % 10 + 0x30);
+        ch = (char) (c % 10 + '0');
       }
-      bytes[i] = b;
+
+      chars[i] = ch;
+
       if ((indexOfLineBreak != 0) && ((c % indexOfLineBreak) == 0) && (i < lastIndex)) {
         i++;
-        bytes[i] = 0x0A;
+        chars[i] = '\n';
       }
     }
-    return new String(bytes);
+
+    String value = new String(chars);
+    return value;
   }
 
   /**
