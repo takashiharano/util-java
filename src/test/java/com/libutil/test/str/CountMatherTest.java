@@ -16,11 +16,20 @@ public class CountMatherTest {
     Log.d(StrUtil.countMatcher(str, "x"));
     Log.d(StrUtil.countMatcher(str, "x", true));
 
+    Log.d(StrUtil.countMatcher(str, "xy"));
+    Log.d(StrUtil.countMatcher(str, "xy", true));
+
     Log.d(StrUtil.countMatcher(str, "abc"));
     Log.d(StrUtil.countMatcher(str, "abc", Pattern.CASE_INSENSITIVE));
 
     Log.d(StrUtil.countMatcher(str, "ABC"));
     Log.d(StrUtil.countMatcher(str, "ABC", Pattern.CASE_INSENSITIVE));
+
+    Log.d(StrUtil.countMatcher(str, "^"));
+    Log.d(StrUtil.countMatcher(str, "^", true));
+
+    Log.d(StrUtil.countMatcher(str, "$"));
+    Log.d(StrUtil.countMatcher(str, "$", true));
   }
 
 }

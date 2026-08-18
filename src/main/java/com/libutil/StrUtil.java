@@ -183,6 +183,9 @@ public class StrUtil {
       int i = 0;
       while (m.find(i)) {
         count++;
+        if (m.start() >= target.length()) {
+          break;
+        }
         i = m.start() + 1;
       }
     } else {
