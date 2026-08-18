@@ -310,7 +310,6 @@ public class CommandExecutor {
    */
   public String execCommand(String[] command, String charset, long timeout, File dir) throws Exception {
     InputStream inpStream = null;
-    InputStream errStream = null;
     OutputStream outStream = null;
 
     if (charset == null) {
@@ -318,13 +317,14 @@ public class CommandExecutor {
     }
 
     ProcessBuilder pb = new ProcessBuilder(command);
+    // Merge standard error into standard output.
     pb.redirectErrorStream(true);
     pb.directory(dir);
+
     Process p = pb.start();
     this.process = p;
     try {
       inpStream = p.getInputStream();
-      errStream = p.getErrorStream();
       outStream = p.getOutputStream();
 
       StreamGobbler outGobbler = new StreamGobbler(inpStream);
@@ -352,9 +352,7 @@ public class CommandExecutor {
       if (inpStream != null) {
         inpStream.close();
       }
-      if (errStream != null) {
-        errStream.close();
-      }
+
       if (outStream != null) {
         outStream.close();
       }
