@@ -343,11 +343,11 @@ public class CommandExecutor {
       t1.join();
 
       String out = outGobbler.getResult(charset);
-      StringBuilder result = new StringBuilder();
+      String result = "";
       if (out != null) {
-        result.append(out);
+        result = out;
       }
-      return result.toString();
+      return result;
     } finally {
       if (inpStream != null) {
         inpStream.close();
