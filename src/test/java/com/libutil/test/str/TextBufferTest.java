@@ -37,6 +37,9 @@ public class TextBufferTest {
     Log.d(tb.substr(-1, -1));
     Log.d(tb.substr(3, -2));
     Log.d(tb.substr(3, 15));
+    Log.d("9,1: " + tb.substr(9, 1));
+    Log.d("10,1: " + tb.substr(10, 1));
+    Log.d("11,1: " + tb.substr(11, 1));
 
     Log.d("---");
     Log.d(tb.substr(0));

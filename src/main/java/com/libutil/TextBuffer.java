@@ -530,19 +530,25 @@ public class TextBuffer {
     if ((start < 0) && (len < 0)) {
       return "";
     }
+
     if (len < 0) {
       len *= (-1);
       start -= len;
     }
+
     if (start < 0) {
       return "";
-    } else if (start >= l) {
-      start = l - 1;
     }
+
+    if (start >= l) {
+      return "";
+    }
+
     int end = start + len;
     if (end > l) {
       end = l;
     }
+
     return buf.substring(start, end);
   }
 
