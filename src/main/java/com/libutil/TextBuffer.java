@@ -514,15 +514,17 @@ public class TextBuffer {
   }
 
   /**
-   * Returns a new String that contains a subsequence of characters currently
-   * contained in this sequence. The substring begins at the specified start and
-   * extends to the character at index start + len.
+   * Returns a substring of this sequence.<br>
+   * If len is non-negative, returns up to len characters starting at start.<br>
+   * If len is negative, returns up to -len characters preceding start.<br>
+   * The substring does not extend beyond the end of this sequence.
    *
    * @param start
-   *          The beginning index, inclusive
+   *          the start position
    * @param len
-   *          The length of a new String
-   * @return The new string
+   *          the number of characters to return; a negative value specifies
+   *          characters preceding start
+   * @return the substring
    */
   public String substr(int start, int len) {
     int l = buf.length();
