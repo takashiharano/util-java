@@ -45,7 +45,7 @@ public class CommandExecutor {
    *          the command string
    * @return command result
    * @throws Exception
-   *           an exceptions that occurred during execution
+   *           an exception that occurred during execution
    */
   public static String exec(String command) throws Exception {
     return exec(command, null, 0, null);

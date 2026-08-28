@@ -2450,7 +2450,7 @@ public class StrUtil {
    *
    * @param n
    *          the index to convert (1-16384)
-   * @return the letter corresponding to the index ("A-"XFD")
+   * @return the letter corresponding to the index ("A"-"XFD")
    */
   public static String xlscol(int n) {
     return StringPermutation.getString("ABCDEFGHIJKLMNOPQRSTUVWXYZ", n);
@@ -2465,7 +2465,7 @@ public class StrUtil {
    *          the origin column letter ("A"-"XFD")
    * @param offset
    *          offset
-   * @return the letter corresponding to the index ("A-"XFD")
+   * @return the letter corresponding to the index ("A"-"XFD")
    */
   public static String xlscol(String s, int offset) {
     int n = xlscol(s);
