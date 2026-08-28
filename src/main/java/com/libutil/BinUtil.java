@@ -755,7 +755,7 @@ public class BinUtil {
    * @return the bit-flipped byte
    */
   public static byte invert(byte src) {
-    return (byte) ((~src) & 255);
+    return (byte) ~src;
   }
 
   /**
@@ -769,7 +769,7 @@ public class BinUtil {
     byte[] buf = new byte[src.length];
     for (int i = 0; i < src.length; i++) {
       byte b = src[i];
-      buf[i] = (byte) ((~b) & 255);
+      buf[i] = (byte) ~b;
     }
     return buf;
   }
