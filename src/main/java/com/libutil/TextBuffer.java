@@ -499,6 +499,7 @@ public class TextBuffer {
    */
   public String substr(int start) {
     int len = buf.length();
+
     if (start < 0) {
       start = len + start;
       if (start < 0) {
@@ -507,11 +508,9 @@ public class TextBuffer {
     } else if (start >= len) {
       return "";
     }
-    int end = start + len;
-    if (end > len) {
-      end = len;
-    }
-    return buf.substring(start, end);
+
+    String value = buf.substring(start);
+    return value;
   }
 
   /**
