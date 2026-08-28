@@ -1647,23 +1647,25 @@ public class StrUtil {
     if (s == null) {
       return null;
     }
+
     if ((n < -9) || (n > 9)) {
       n = n % 10;
     }
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < s.length(); i++) {
-      int cp = s.codePointAt(i);
-      if (isNumber(s, i)) {
-        cp += n;
-        if (cp > 0x39) {
-          cp = 0x2F + (cp - 0x39);
-        } else if (cp < 0x30) {
-          cp = 0x3A - (0x30 - cp);
-        }
 
+    StringBuilder sb = new StringBuilder(s.length());
+    for (int i = 0; i < s.length(); i++) {
+      int c = s.charAt(i);
+      if ((c >= 0x30) && (c <= 0x39)) {
+        c += n;
+        if (c > 0x39) {
+          c = 0x2F + (c - 0x39);
+        } else if (c < 0x30) {
+          c = 0x3A - (0x30 - c);
+        }
       }
-      sb.append((char) cp);
+      sb.append((char) c);
     }
+
     return sb.toString();
   }
 
@@ -1701,30 +1703,32 @@ public class StrUtil {
     if (s == null) {
       return null;
     }
+
     if ((n < -25) || (n > 25)) {
       n = n % 26;
     }
-    StringBuilder sb = new StringBuilder();
+
+    StringBuilder sb = new StringBuilder(s.length());
     for (int i = 0; i < s.length(); i++) {
-      int cp = s.codePointAt(i);
-      if (isAlphabetic(s, i)) {
-        cp += n;
-        if (isUpperCase(s, i)) {
-          if (cp > 0x5A) {
-            cp = 0x40 + (cp - 0x5A);
-          } else if (cp < 0x41) {
-            cp = 0x5B - (0x41 - cp);
-          }
-        } else if (isLowerCase(s, i)) {
-          if (cp > 0x7A) {
-            cp = 0x60 + (cp - 0x7A);
-          } else if (cp < 0x61) {
-            cp = 0x7B - (0x61 - cp);
-          }
+      int c = s.charAt(i);
+      if ((c >= 0x41) && (c <= 0x5A)) {
+        c += n;
+        if (c > 0x5A) {
+          c = 0x40 + (c - 0x5A);
+        } else if (c < 0x41) {
+          c = 0x5B - (0x41 - c);
+        }
+      } else if ((c >= 0x61) && (c <= 0x7A)) {
+        c += n;
+        if (c > 0x7A) {
+          c = 0x60 + (c - 0x7A);
+        } else if (c < 0x61) {
+          c = 0x7B - (0x61 - c);
         }
       }
-      sb.append((char) cp);
+      sb.append((char) c);
     }
+
     return sb.toString();
   }
 
@@ -1800,23 +1804,27 @@ public class StrUtil {
     if (s == null) {
       return null;
     }
+
     if ((n < -93) || (n > 93)) {
       n = n % 94;
     }
-    StringBuilder sb = new StringBuilder();
+
+    StringBuilder sb = new StringBuilder(s.length());
     for (int i = 0; i < s.length(); i++) {
-      int cp = s.codePointAt(i);
-      if ((cp >= 0x21) && (cp <= 0x7E)) {
+      int c = s.charAt(i);
+      if ((c >= 0x21) && (c <= 0x7E)) {
         if (n < 0) {
-          cp += n;
-          if (cp < 0x21)
-            cp = 0x7F - (0x21 - cp);
+          c += n;
+          if (c < 0x21) {
+            c = 0x7F - (0x21 - c);
+          }
         } else {
-          cp = ((cp - 0x21 + n) % 94) + 0x21;
+          c = ((c - 0x21 + n) % 94) + 0x21;
         }
       }
-      sb.append((char) cp);
+      sb.append((char) c);
     }
+
     return sb.toString();
   }
 

@@ -16,6 +16,7 @@ public class Rot18Test {
     Log.i("Test1");
     TestUtil.assertEquals("NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm6789012345", StrUtil.rot18("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"));
     TestUtil.assertEquals(null, StrUtil.rot18(null));
+    TestUtil.assertEquals("😀N5", StrUtil.rot18("😀A0"));
   }
 
   private static void test2() {

@@ -22,6 +22,7 @@ public class Rot47Test {
     TestUtil.assertEquals("", StrUtil.rot47(""));
     TestUtil.assertEquals("あ", StrUtil.rot47("あ"));
     TestUtil.assertEquals("2あ", StrUtil.rot47("aあ"));
+    TestUtil.assertEquals("😀p_R", StrUtil.rot47("😀A0#"));
     TestUtil.assertEquals(null, StrUtil.rot47(null));
   }
 

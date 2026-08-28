@@ -23,6 +23,7 @@ public class Rot5Test {
     TestUtil.assertEquals("", StrUtil.rot5(""));
     TestUtil.assertEquals("あ", StrUtil.rot5("あ"));
     TestUtil.assertEquals("6あ", StrUtil.rot5("1あ"));
+    TestUtil.assertEquals("😀A5", StrUtil.rot5("😀A0"));
     TestUtil.assertEquals(null, StrUtil.rot5(null));
   }
 

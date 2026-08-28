@@ -42,6 +42,7 @@ public class Rot13Test {
     TestUtil.assertEquals("", StrUtil.rot13("", 1));
     TestUtil.assertEquals("あ", StrUtil.rot13("あ", 1));
     TestUtil.assertEquals("bあ", StrUtil.rot13("aあ", 1));
+    TestUtil.assertEquals("😀B", StrUtil.rot13("😀A", 1));
     TestUtil.assertEquals(null, StrUtil.rot13(null, 1));
   }
 
