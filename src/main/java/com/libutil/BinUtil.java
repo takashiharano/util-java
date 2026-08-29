@@ -86,7 +86,6 @@ public class BinUtil {
 
     if ((len % unitSize) != 0) {
       len = unitSize * size;
-      src = src.substring(0, len);
     }
 
     byte[] bytes = new byte[size];
@@ -97,6 +96,7 @@ public class BinUtil {
       bytes[p] = (byte) b;
       p++;
     }
+
     return bytes;
   }
 
