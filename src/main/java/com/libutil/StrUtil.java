@@ -678,9 +678,14 @@ public class StrUtil {
     if (s == null) {
       return false;
     }
-    Pattern p = Pattern.compile("^\\p{ASCII}*$");
-    Matcher m = p.matcher(s);
-    return m.matches();
+
+    for (int i = 0; i < s.length(); i++) {
+      if (s.charAt(i) > 0x7F) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   /**
