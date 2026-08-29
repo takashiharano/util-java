@@ -640,6 +640,11 @@ public class StrUtil {
    * @return Decimal formatted string
    */
   public static String intNumToDecimal(long number, int scale) {
+    if (scale == 0) {
+      String value = Long.toString(number);
+      return value;
+    }
+
     if (number == 0) {
       return "0";
     }
