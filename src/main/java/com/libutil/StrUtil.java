@@ -2478,10 +2478,29 @@ public class StrUtil {
    * @return trimmed value
    */
   public static String trimLeadingZeros(String s) {
-    if (s == null) {
+    if ((s == null) || s.isEmpty()) {
       return s;
     }
-    return s.replaceAll("^([^0]*)0+(.+)$", "$1$2");
+
+    int len = s.length();
+    int start = 0;
+
+    char first = s.charAt(0);
+    if ((first == '+') || (first == '-')) {
+      start = 1;
+    }
+
+    int i = start;
+    while ((i < (len - 1)) && (s.charAt(i) == '0') && (s.charAt(i + 1) != '.')) {
+      i++;
+    }
+
+    if (i == start) {
+      return s;
+    }
+
+    String value = s.substring(0, start) + s.substring(i);
+    return value;
   }
 
   /**
