@@ -797,7 +797,7 @@ public class StrUtil {
     if (str == null) {
       return true;
     }
-    return str.trim().equals("");
+    return str.trim().isEmpty();
   }
 
   /**
@@ -823,7 +823,7 @@ public class StrUtil {
     if (str == null) {
       return true;
     }
-    return str.equals("");
+    return str.isEmpty();
   }
 
   /**
