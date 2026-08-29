@@ -786,7 +786,7 @@ public class BinUtil {
   public static byte rotateLeft(byte b, int n) {
     n = n % 8;
     int v = ((int) b) & 255;
-    byte rb = (byte) (((v << n) | (v >>> (8 - n))) & 255);
+    byte rb = (byte) ((v << n) | (v >>> (8 - n)));
     return rb;
   }
 
@@ -805,7 +805,7 @@ public class BinUtil {
     for (int i = 0; i < src.length; i++) {
       byte b = src[i];
       int v = ((int) b) & 255;
-      byte rb = (byte) (((v << n) | (v >>> (8 - n))) & 255);
+      byte rb = (byte) ((v << n) | (v >>> (8 - n)));
       buf[i] = rb;
     }
     return buf;
@@ -823,7 +823,7 @@ public class BinUtil {
   public static byte rotateRight(byte b, int n) {
     n = n % 8;
     int v = ((int) b) & 255;
-    byte rb = (byte) (((v >>> n) | (v << ((8 - n)))) & 255);
+    byte rb = (byte) ((v >>> n) | (v << (8 - n)));
     return rb;
   }
 
@@ -842,7 +842,7 @@ public class BinUtil {
     for (int i = 0; i < src.length; i++) {
       byte b = src[i];
       int v = ((int) b) & 255;
-      byte rb = (byte) (((v >>> n) | (v << ((8 - n)))) & 255);
+      byte rb = (byte) ((v >>> n) | (v << (8 - n)));
       buf[i] = rb;
     }
     return buf;
