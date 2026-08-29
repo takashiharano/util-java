@@ -1149,9 +1149,6 @@ public class StrUtil {
 
     String[] w = s.split("\\.");
     String i = w[0];
-    if (w.length > 2) {
-      return n;
-    }
     String f = ((w.length == 2) ? w[1] : "0");
 
     i = i.replaceAll("^0+", "");
