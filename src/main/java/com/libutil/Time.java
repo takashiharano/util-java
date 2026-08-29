@@ -231,7 +231,7 @@ public class Time {
       sb.append(this.minutes + "m ");
     }
     if (f) {
-      if (this.millis >= SECOND) {
+      if (Math.abs(this.millis) >= SECOND) {
         if (this.milliseconds == 0) {
           sb.append(this.seconds + "s");
         } else {
@@ -566,30 +566,43 @@ public class Time {
    * @param millis
    *          milliseconds
    * @param mode
-   *          resolution. 0=auto / 1=millis / 2=secs if gt 60s
+   *          resolution. 0=auto / 1=millis / 2=secs<br>
+   *          Auto mode uses seconds for 60s or greater.
    * @return human-readable time string
    */
   public static String toStringWithUnit(long millis, int mode) {
     Time t = new Time(millis);
+
     if (mode == 1) {
       return t.toStringWithUnit(false, true);
     }
-    if ((mode == 2) || (millis >= 60000)) {
+
+    long value = Math.abs(millis);
+
+    if ((mode == 2) || (value >= 60000)) {
       return t.toStringWithUnit(false, false);
     }
 
     int ss = t.seconds;
     int sss = t.milliseconds;
+
     StringBuilder sb = new StringBuilder();
-    if (millis < 1000) {
+
+    if (millis < 0) {
+      sb.append("-");
+    }
+
+    if (value < 1000) {
       sb.append(sss + "ms");
     } else {
-      if (millis < 10000) {
+      if (value < 10000) {
         sss = sss - sss % 10;
       } else {
         sss = sss - sss % 100;
       }
+
       String msec = (sss + "").replaceAll("0+$", "");
+
       if (sss == 0) {
         sb.append(ss + "s");
       } else if (sss < 100) {
@@ -598,6 +611,7 @@ public class Time {
         sb.append(ss + "." + msec + "s");
       }
     }
+
     return sb.toString();
   }
 
