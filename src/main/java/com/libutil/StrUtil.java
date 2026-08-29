@@ -1307,6 +1307,9 @@ public class StrUtil {
   /**
    * Returns the word in the singular or plural, depending on the number
    * specified.
+   * <p>
+   * This method handles only basic English pluralization patterns and does not
+   * cover irregular plurals or all grammatical exceptions.
    *
    * @param word
    *          the word
@@ -1321,13 +1324,16 @@ public class StrUtil {
   /**
    * Returns the word in the singular or plural, depending on the number
    * specified.
+   * <p>
+   * This method handles only basic English pluralization patterns and does not
+   * cover irregular plurals or all grammatical exceptions.
    *
    * @param word
    *          the word
    * @param n
    *          number of the target
    * @param flag
-   *          if set to true, adds "s" simply
+   *          if set to true, adds "s" or "S" without applying pluralization rules
    * @return the word in the singular or plural
    */
   public static String plural(String word, int n, boolean flag) {
@@ -1335,81 +1341,63 @@ public class StrUtil {
       return word;
     }
 
+    int len = word.length();
+    if (len == 0) {
+      return word;
+    }
+
+    char last = word.charAt(len - 1);
+    boolean upper = Character.isUpperCase(last);
+
+    String sSuffix;
+    String esSuffix;
+    String iesSuffix;
+
+    if (upper) {
+      sSuffix = "S";
+      esSuffix = "ES";
+      iesSuffix = "IES";
+    } else {
+      sSuffix = "s";
+      esSuffix = "es";
+      iesSuffix = "ies";
+    }
+
     if (flag) {
-      return word + "s";
+      return word + sSuffix;
     }
 
-    String r = "s$";
-    Pattern p = Pattern.compile(r, Pattern.CASE_INSENSITIVE);
-    Matcher m = p.matcher(word);
-    if (m.find()) {
-      return word + "es";
-    }
-    r = "ch$";
-    p = Pattern.compile(r, Pattern.CASE_INSENSITIVE);
-    m = p.matcher(word);
-    if (m.find()) {
-      return word + "es";
-    }
-    r = "sh$";
-    p = Pattern.compile(r, Pattern.CASE_INSENSITIVE);
-    m = p.matcher(word);
-    if (m.find()) {
-      return word + "es";
-    }
-    r = "x$";
-    p = Pattern.compile(r, Pattern.CASE_INSENSITIVE);
-    m = p.matcher(word);
-    if (m.find()) {
-      return word + "es";
-    }
-    r = "o$";
-    p = Pattern.compile(r, Pattern.CASE_INSENSITIVE);
-    m = p.matcher(word);
-    if (m.find()) {
-      return word + "es";
+    if ((last == 'y') || (last == 'Y')) {
+      if (len >= 2) {
+        char prev = word.charAt(len - 2);
+        if (!isAsciiVowel(prev)) {
+          String base = word.substring(0, len - 1);
+          String value = base + iesSuffix;
+          return value;
+        }
+      }
+
+      return word + sSuffix;
     }
 
-    r = "y$";
-    p = Pattern.compile(r);
-    m = p.matcher(word);
-    if (m.find()) {
-      return word.replaceAll(r, "ies");
-    }
-    r = "Y$";
-    p = Pattern.compile(r);
-    m = p.matcher(word);
-    if (m.find()) {
-      return word.replaceAll(r, "IES");
+    if ((last == 's') || (last == 'S') || (last == 'x') || (last == 'X')) {
+      return word + esSuffix;
     }
 
-    r = "f$";
-    p = Pattern.compile(r);
-    m = p.matcher(word);
-    if (m.find()) {
-      return word.replaceAll(r, "ves");
-    }
-    r = "F$";
-    p = Pattern.compile(r);
-    m = p.matcher(word);
-    if (m.find()) {
-      return word.replaceAll(r, "VES");
+    if (len >= 2) {
+      char prev = word.charAt(len - 2);
+
+      if (((prev == 'c') || (prev == 'C') || (prev == 's') || (prev == 'S')) && ((last == 'h') || (last == 'H'))) {
+        return word + esSuffix;
+      }
     }
 
-    r = "fe$";
-    p = Pattern.compile(r);
-    m = p.matcher(word);
-    if (m.find()) {
-      return word.replaceAll(r, "ves");
-    }
-    r = "FE$";
-    p = Pattern.compile(r);
-    m = p.matcher(word);
-    if (m.find()) {
-      return word.replaceAll(r, "VES");
-    }
+    String value = word + sSuffix;
+    return value;
+  }
 
-    return word + "s";
+  private static boolean isAsciiVowel(char c) {
+    return ((c == 'a') || (c == 'A') || (c == 'e') || (c == 'E') || (c == 'i') || (c == 'I') || (c == 'o') || (c == 'O') || (c == 'u') || (c == 'U'));
   }
 
   /**

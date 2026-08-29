@@ -9,14 +9,14 @@ public class PluralTest {
     test("apple");
     test("APPLE");
     test("bus");
-    test("dish");
-    test("potato");
-    test("piano");
-    test("piano", true);
     test("city");
     test("CITY");
-    test("knife");
-    test("KNIFE");
+    test("city", true);
+    test("dish");
+    test("key");
+    test("KEY");
+    test("piano");
+    test("potato");
   }
 
   private static void test(String word) {
