@@ -525,13 +525,25 @@ public class Time {
    * @return decimal hours (e.g., 9.5)
    */
   public static float toHours(String s) {
+    boolean negative = s.charAt(0) == '-';
+    if (negative) {
+      s = s.substring(1);
+    }
+
     s = s.replace(":", "");
     int p = s.length() - 2;
     String hh = s.substring(0, p);
     String mm = s.substring(p);
+
     float h = Float.parseFloat(hh);
     float m = Float.parseFloat(mm);
-    return h + (m / 60);
+    float hours = h + (m / 60);
+
+    if (negative) {
+      hours *= -1;
+    }
+
+    return hours;
   }
 
   /**
