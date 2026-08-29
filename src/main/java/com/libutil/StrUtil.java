@@ -928,7 +928,7 @@ public class StrUtil {
       return false;
     }
     s = s.trim();
-    if ("".equals(s) || "0".equals(s) || "false".equals(s.toLowerCase())) {
+    if (s.isEmpty() || s.equals("0") || s.equalsIgnoreCase("false")) {
       return false;
     }
     return true;
@@ -2160,8 +2160,8 @@ public class StrUtil {
     if (s == null) {
       return false;
     }
-    s = s.trim().toLowerCase();
-    return s.equals("true");
+    s = s.trim();
+    return s.equalsIgnoreCase("true");
   }
 
   /**
