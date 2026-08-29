@@ -596,14 +596,16 @@ public class StrUtil {
   }
 
   /**
-   * Returns the sentence "N SUBJECT have/has been PRED."
+   * Returns a sentence describing the specified state of one or more subjects.
+   * The subject is pluralized using basic English pluralization rules when the
+   * number is not 1.
    *
    * @param subject
    *          the subject
    * @param predicate
    *          the predicate
    * @param n
-   *          number
+   *          number of the subjects
    * @return the sentence
    */
   public static String haveBeen(String subject, String predicate, int n) {
@@ -611,16 +613,18 @@ public class StrUtil {
   }
 
   /**
-   * Returns the sentence "N SUBJECT have/has been PRED."
+   * Returns a sentence describing the specified state of one or more subjects.
+   * The subject is pluralized using basic English pluralization rules when the
+   * number is not 1, unless flag is true.
    *
    * @param subject
    *          the subject
    * @param predicate
    *          the predicate
    * @param n
-   *          number
+   *          number of the subjects
    * @param flag
-   *          if set to true, simply add "s" to the subject for plurals
+   *          if true, simply adds "s" or "S" to the subject for plurals
    * @return the sentence
    */
   public static String haveBeen(String subject, String predicate, int n, boolean flag) {
