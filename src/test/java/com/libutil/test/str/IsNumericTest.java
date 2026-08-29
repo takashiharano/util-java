@@ -14,6 +14,8 @@ public class IsNumericTest {
   }
 
   private static void isIntegerTest() {
+    Log.d("isIntegerTest");
+
     String str = "1";
     Log.d(str + "=" + StrUtil.isInteger(str));
 
@@ -61,6 +63,8 @@ public class IsNumericTest {
   }
 
   private static void isFloatTest() {
+    Log.d("isFloatTest");
+
     String str = "1";
     Log.d(str + "=" + StrUtil.isFloat(str));
 
@@ -108,7 +112,7 @@ public class IsNumericTest {
   }
 
   private static void isNumericTest() {
-    Log.d("isNumberTest");
+    Log.d("isNumericTest");
 
     String str = "1";
     Log.d(str + "=" + StrUtil.isNumeric(str));

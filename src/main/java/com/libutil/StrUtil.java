@@ -860,10 +860,47 @@ public class StrUtil {
    * @return true if the string is a float
    */
   public static boolean isFloat(String s) {
-    if (s == null) {
+    if ((s == null) || s.isEmpty()) {
       return false;
     }
-    return match(s, "^[-+]?\\d*\\.\\d+$");
+
+    int len = s.length();
+    int i = 0;
+
+    char first = s.charAt(0);
+    if ((first == '+') || (first == '-')) {
+      i = 1;
+    }
+
+    int integerStart = i;
+    while (i < len) {
+      char c = s.charAt(i);
+      if ((c < '0') || (c > '9')) {
+        break;
+      }
+      i++;
+    }
+
+    if ((i == integerStart) || (i >= len) || (s.charAt(i) != '.')) {
+      return false;
+    }
+
+    i++;
+    int decimalStart = i;
+
+    while (i < len) {
+      char c = s.charAt(i);
+      if ((c < '0') || (c > '9')) {
+        return false;
+      }
+      i++;
+    }
+
+    if (i == decimalStart) {
+      return false;
+    }
+
+    return true;
   }
 
   /**
@@ -874,10 +911,28 @@ public class StrUtil {
    * @return true if the string is an integer
    */
   public static boolean isInteger(String s) {
-    if (s == null) {
+    if ((s == null) || s.isEmpty()) {
       return false;
     }
-    return match(s, "^[-+]?\\d+$");
+
+    int start = 0;
+    char first = s.charAt(0);
+    if ((first == '+') || (first == '-')) {
+      start = 1;
+    }
+
+    if (start == s.length()) {
+      return false;
+    }
+
+    for (int i = start; i < s.length(); i++) {
+      char c = s.charAt(i);
+      if ((c < '0') || (c > '9')) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   /**
@@ -910,10 +965,18 @@ public class StrUtil {
    * @return true if the string is a number
    */
   public static boolean isNumber(String s) {
-    if (s == null) {
+    if ((s == null) || s.isEmpty()) {
       return false;
     }
-    return match(s, "^\\d+$");
+
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
+      if ((c < '0') || (c > '9')) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   /**
