@@ -32,15 +32,15 @@ public class TextBuffer {
   private String lineSeparator = "\n";
 
   /**
-   * Constructs a string builder with no characters in it and an initial capacity
-   * of 16 characters.
+   * Constructs a text buffer with no characters in it and an initial capacity of
+   * 16 characters.
    */
   public TextBuffer() {
     this.buf = new StringBuilder();
   }
 
   /**
-   * Constructs a string builder with no characters in it and an initial capacity
+   * Constructs a text buffer with no characters in it and an initial capacity
    * specified by the capacity argument.
    *
    * @param capacity
@@ -51,7 +51,7 @@ public class TextBuffer {
   }
 
   /**
-   * Constructs a string builder with no characters in it and an initial capacity
+   * Constructs a text buffer with no characters in it and an initial capacity
    * specified by the capacity argument.
    *
    * @param capacity
@@ -65,8 +65,7 @@ public class TextBuffer {
   }
 
   /**
-   * Constructs a string builder initialized to the contents of the specified
-   * string.
+   * Constructs a text buffer initialized to the contents of the specified string.
    *
    * @param str
    *          the initial contents of the buffer
@@ -76,8 +75,7 @@ public class TextBuffer {
   }
 
   /**
-   * Constructs a string builder initialized to the contents of the specified
-   * string.
+   * Constructs a text buffer initialized to the contents of the specified string.
    *
    * @param str
    *          the initial contents of the buffer

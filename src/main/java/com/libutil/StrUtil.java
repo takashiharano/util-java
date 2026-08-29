@@ -95,7 +95,8 @@ public class StrUtil {
    *          The source string
    * @param newLine
    *          New line code.<br>
-   *          Special characters in regular expressions must be escaped.
+   *          Backslashes and dollar signs in the replacement string must be
+   *          escaped.
    * @return The converted string
    */
   public static String convertNewLine(String src, String newLine) {

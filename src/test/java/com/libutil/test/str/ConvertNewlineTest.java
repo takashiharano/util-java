@@ -8,7 +8,14 @@ public class ConvertNewlineTest {
   public static void main(String args[]) {
     String str = " abc\n123 456\r\nxyz\rABC\tDEF ";
     Log.d("\"" + str + "\"");
-    Log.d("\"" + StrUtil.convertNewLine(str, "#") + "\"");
+    test(str, "#");
+    test(str, "<br>");
+    test(str, "\\\\");
+    test(str, "\\$");
+  }
+
+  private static void test(String str, String newline) {
+    Log.d("\"" + StrUtil.convertNewLine(str, newline) + "\"");
   }
 
 }
