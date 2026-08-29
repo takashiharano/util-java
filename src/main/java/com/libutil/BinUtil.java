@@ -726,6 +726,7 @@ public class BinUtil {
     if (str == null) {
       return null;
     }
+
     int padLen = len - str.length();
     if (padLen <= 0) {
       if (align) {
@@ -733,17 +734,21 @@ public class BinUtil {
       }
       return str;
     }
-    String pd = repeat(pad, padLen);
-    StringBuilder sb = new StringBuilder(pd);
-    sb.append(str);
-    return sb.toString();
-  }
 
-  private static String repeat(String str, int n) {
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < n; i++) {
-      sb.append(str);
+    if (pad.isEmpty()) {
+      return str;
     }
+
+    StringBuilder sb = new StringBuilder(len);
+    while (sb.length() < padLen) {
+      sb.append(pad);
+    }
+
+    if (sb.length() > padLen) {
+      sb.setLength(padLen);
+    }
+
+    sb.append(str);
     return sb.toString();
   }
 
