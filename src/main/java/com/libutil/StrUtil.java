@@ -1951,18 +1951,23 @@ public class StrUtil {
     if (s == null) {
       return null;
     }
+
     if (n1 == -1) {
       n1 = 7;
     }
+
     if (n2 == -1) {
       n2 = 7;
     }
+
     if (chars == null) {
       chars = "..";
     }
-    if (s.length() >= (n1 + n2 + chars.length())) {
+
+    if (s.length() > (n1 + n2 + chars.length())) {
       s = s.substring(0, n1) + chars + s.substring(s.length() - n2, s.length());
     }
+
     return s;
   }
 

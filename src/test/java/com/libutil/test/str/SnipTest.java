@@ -23,6 +23,10 @@ public class SnipTest {
     Log.i(StrUtil.snip("ABCD", 2, 1, ".."));
     Log.i(StrUtil.snip("ABCD", 1, 1, ".."));
     Log.i(StrUtil.snip("ABCD", 4, 1, ".."));
+
+    Log.i(StrUtil.snip("ABCD", 1, 1, ".."));
+    Log.i(StrUtil.snip("ABCD", 1, 1, "."));
+    Log.i(StrUtil.snip("1234567890ABCDEF", ".."));
   }
 
 }
