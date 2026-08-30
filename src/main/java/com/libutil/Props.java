@@ -494,19 +494,21 @@ public class Props {
    *         Returns -1 if the field name does not exist.
    */
   public int getMinFieldNameIndex(String name) {
-    Pattern p1 = Pattern.compile("^" + name + "[0-9]+$");
     int min = -1;
+
     for (Entry<String, String> entry : properties.entrySet()) {
       String key = entry.getKey();
-      Matcher matcher = p1.matcher(key);
-      if (matcher.matches()) {
-        String num = key.replaceAll(name, "");
-        int n = Integer.parseInt(num);
-        if ((min == -1) || (n < min)) {
-          min = n;
-        }
+      int index = getFieldNameIndex(key, name);
+
+      if (index == -1) {
+        continue;
+      }
+
+      if ((min == -1) || (index < min)) {
+        min = index;
       }
     }
+
     return min;
   }
 
@@ -527,20 +529,44 @@ public class Props {
    *         Returns -1 if the field name does not exist.
    */
   public int getMaxFieldNameIndex(String name) {
-    Pattern p1 = Pattern.compile("^" + name + "[0-9]+$");
     int max = -1;
+
     for (Entry<String, String> entry : properties.entrySet()) {
       String key = entry.getKey();
-      Matcher matcher = p1.matcher(key);
-      if (matcher.matches()) {
-        String num = key.replaceAll(name, "");
-        int n = Integer.parseInt(num);
-        if (max < n) {
-          max = n;
-        }
+      int index = getFieldNameIndex(key, name);
+
+      if (index == -1) {
+        continue;
+      }
+
+      if (max < index) {
+        max = index;
       }
     }
+
     return max;
+  }
+
+  private static int getFieldNameIndex(String key, String name) {
+    if (!key.startsWith(name)) {
+      return -1;
+    }
+
+    int pos = name.length();
+    if (pos == key.length()) {
+      return -1;
+    }
+
+    for (int i = pos; i < key.length(); i++) {
+      char c = key.charAt(i);
+      if ((c < '0') || (c > '9')) {
+        return -1;
+      }
+    }
+
+    String num = key.substring(pos);
+    int index = Integer.parseInt(num);
+    return index;
   }
 
   /**
