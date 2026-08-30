@@ -113,11 +113,150 @@ public class HttpRequest {
    * Send an HTTP request.
    *
    * @param data
-   *          a payload body
+   *          A payload body. For GET, add it to the URL as a query string.
    * @return HttpResponse object
    */
   public HttpResponse send(String data) {
+    if (query != null) {
+      url = UrlUtil.appendQuery(url, query);
+    }
+
+    if ("GET".equals(method)) {
+      if (data != null) {
+        url = UrlUtil.appendQuery(url, data);
+      }
+    }
+
     return send(data, null);
+  }
+
+  private HttpResponse send(String data, HttpResponse response) {
+    try {
+      if (response != null) {
+        String location = response.getHeaderValue("Location");
+        if (location == null) {
+          return response;
+        }
+
+        URL baseUrl = new URL(this.url);
+        URL redirectUrl = new URL(baseUrl, location);
+        this.url = redirectUrl.toString();
+      }
+
+      response = _send(data);
+      int status = response.getStatus();
+      if ((status >= 300) && (status <= 399) && redirect) {
+        if (status == 303) {
+          if (!"HEAD".equals(method)) {
+            method = "GET";
+          }
+          data = null;
+        }
+
+        response = send(data, response);
+      }
+    } catch (Exception e) {
+      response = new HttpResponse();
+      response.setStatus(0);
+      response.setErrorDetail(e);
+    }
+
+    return response;
+  }
+
+  /**
+   * Send an HTTP request.
+   *
+   * @param data
+   *          A payload body.
+   * @return HttpResponse object
+   * @throws IOException
+   *           If an I/O error occurs
+   */
+  private HttpResponse _send(String data) throws IOException {
+    if (proxy == null) {
+      proxy = Proxy.NO_PROXY;
+    }
+
+    URL urlObj = new URL(url);
+    HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection(proxy);
+    conn.setRequestMethod(method);
+    conn.setInstanceFollowRedirects(false);
+
+    if (connectionTimeoutSec > 0) {
+      conn.setConnectTimeout(connectionTimeoutSec * 1000);
+    }
+
+    if (readTimeoutSec > 0) {
+      conn.setReadTimeout(readTimeoutSec * 1000);
+    }
+
+    if ((requestHeaders == null) || !hasHeader("Content-Type")) {
+      if ("POST".equals(method) || "PUT".equals(method)) {
+        setContentType("application/x-www-form-urlencoded");
+      }
+    }
+
+    if (cookies != null) {
+      setHeader("Cookie", cookies.toString());
+    }
+
+    if (requestHeaders != null) {
+      for (Entry<String, String> entry : requestHeaders.entrySet()) {
+        conn.setRequestProperty(entry.getKey(), entry.getValue());
+      }
+    }
+
+    if (isWritableMethod(method)) {
+      conn.setDoOutput(true);
+      OutputStream os = conn.getOutputStream();
+      OutputStreamWriter out = new OutputStreamWriter(os);
+      if (data != null) {
+        out.write(data);
+      }
+      out.close();
+      os.close();
+    }
+
+    conn.connect();
+
+    int statusCode = 0;
+    String statusMessage = null;
+    byte[] body = null;
+    InputStream is = null;
+
+    try {
+      statusCode = conn.getResponseCode();
+      statusMessage = conn.getResponseMessage();
+      is = conn.getInputStream();
+      if (is != null) {
+        body = readStream(is);
+        is.close();
+      }
+    } catch (SocketTimeoutException ste) {
+      throw ste;
+    } catch (IOException e) {
+      is = conn.getErrorStream();
+      if (is != null) {
+        body = readStream(is);
+        is.close();
+      }
+    } finally {
+      if (is != null) {
+        is.close();
+      }
+    }
+
+    HttpResponse response = new HttpResponse();
+    response.setStatus(statusCode);
+    response.setStatusMessage(statusMessage);
+    response.setHeaderFields(conn.getHeaderFields());
+    response.setContentLength(conn.getContentLength());
+    response.setBody(body);
+
+    conn.disconnect();
+
+    return response;
   }
 
   /**
@@ -303,142 +442,6 @@ public class HttpRequest {
     }
 
     return baos.toByteArray();
-  }
-
-  private HttpResponse send(String data, HttpResponse response) {
-    try {
-      if (response != null) {
-        String location = response.getHeaderValue("Location");
-        if (location == null) {
-          return response;
-        }
-
-        URL baseUrl = new URL(this.url);
-        URL redirectUrl = new URL(baseUrl, location);
-        this.url = redirectUrl.toString();
-      }
-
-      response = _send(data);
-      int status = response.getStatus();
-      if ((status >= 300) && (status <= 399) && redirect) {
-        if (status == 303) {
-          if (!"HEAD".equals(method)) {
-            method = "GET";
-          }
-          data = null;
-        }
-
-        response = send(data, response);
-      }
-    } catch (Exception e) {
-      response = new HttpResponse();
-      response.setStatus(0);
-      response.setErrorDetail(e);
-    }
-
-    return response;
-  }
-
-  /**
-   * Send an HTTP request.
-   *
-   * @param data
-   *          A payload body. For GET, add it to the URL as a query string.
-   * @return HttpResponse object
-   * @throws IOException
-   *           If an I/O error occurs
-   */
-  private HttpResponse _send(String data) throws IOException {
-    if (query != null) {
-      url = UrlUtil.appendQuery(url, query);
-    }
-
-    if ("GET".equals(method)) {
-      if (data != null) {
-        url = UrlUtil.appendQuery(url, data);
-      }
-    }
-
-    if (proxy == null) {
-      proxy = Proxy.NO_PROXY;
-    }
-
-    URL urlObj = new URL(url);
-    HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection(proxy);
-    conn.setRequestMethod(method);
-    conn.setInstanceFollowRedirects(false);
-    if (connectionTimeoutSec > 0) {
-      conn.setConnectTimeout(connectionTimeoutSec * 1000);
-    }
-
-    if (readTimeoutSec > 0) {
-      conn.setReadTimeout(readTimeoutSec * 1000);
-    }
-
-    if ((requestHeaders == null) || !hasHeader("Content-Type")) {
-      if ("POST".equals(method) || "PUT".equals(method)) {
-        setContentType("application/x-www-form-urlencoded");
-      }
-    }
-
-    if (cookies != null) {
-      setHeader("Cookie", cookies.toString());
-    }
-
-    if (requestHeaders != null) {
-      for (Entry<String, String> entry : requestHeaders.entrySet()) {
-        conn.setRequestProperty(entry.getKey(), entry.getValue());
-      }
-    }
-
-    if (isWritableMethod(method)) {
-      conn.setDoOutput(true);
-      OutputStream os = conn.getOutputStream();
-      OutputStreamWriter out = new OutputStreamWriter(os);
-      if (data != null) {
-        out.write(data);
-      }
-      out.close();
-      os.close();
-    }
-
-    conn.connect();
-
-    int statusCode = 0;
-    String statusMessage = null;
-    byte[] body = null;
-    InputStream is = null;
-    try {
-      statusCode = conn.getResponseCode();
-      statusMessage = conn.getResponseMessage();
-      is = conn.getInputStream();
-      if (is != null) {
-        body = readStream(is);
-        is.close();
-      }
-    } catch (SocketTimeoutException ste) {
-      throw ste;
-    } catch (IOException e) {
-      is = conn.getErrorStream();
-      if (is != null) {
-        body = readStream(is);
-        is.close();
-      }
-    } finally {
-      if (is != null) {
-        is.close();
-      }
-    }
-    HttpResponse response = new HttpResponse();
-    response.setStatus(statusCode);
-    response.setStatusMessage(statusMessage);
-    response.setHeaderFields(conn.getHeaderFields());
-    response.setContentLength(conn.getContentLength());
-    response.setBody(body);
-
-    conn.disconnect();
-
-    return response;
   }
 
 }
