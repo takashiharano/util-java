@@ -33,6 +33,8 @@ public class ToStringTest {
     Log.i(t + " = " + Time.toString(t, "HH:mm:ss.SSS"));
     Log.i(t + " = " + Time.toString(t, "HR:mm:ss.SSS"));
     Log.i(t + " = " + Time.toString(t, "Dd HH24:mm:ss.SSS"));
+    Log.i(t + " = " + Time.toString(t, "-Dd HH24:mm:ss.SSS"));
+    Log.i(t + " = " + Time.toString(t, "+Dd HH24:mm:ss.SSS"));
     Log.i(t + " = " + Time.toString(t, "THH:mm:ss.SSS"));
     Log.i(t + " = " + Time.toString(t, "T+HH:mm:ss.SSS"));
     Log.i("");

@@ -152,11 +152,16 @@ public class Time {
    */
   public String toString(String format) {
     int signType = getSignType(format);
+
     String sign = "";
-    if (millis < 0) {
+    if (signType == 1) {
+      if (millis < 0) {
+        sign = "-";
+      } else {
+        sign = "+";
+      }
+    } else if ((signType == -1) && (millis < 0)) {
       sign = "-";
-    } else if (signType == 1) {
-      sign = "+";
     }
 
     String d = days + "";
@@ -181,9 +186,6 @@ public class Time {
     f3 = f3.substring(f3.length() - 3);
 
     String r = format;
-    if (signType == 0) {
-      r = sign + r;
-    }
     r = r.replace("D", d);
     r = r.replace("-", sign);
     r = r.replace("+", sign);
@@ -193,6 +195,7 @@ public class Time {
     r = r.replace("mm", mm);
     r = r.replace("ss", ss);
     r = r.replace("SSS", f3);
+
     return r;
   }
 
@@ -333,10 +336,8 @@ public class Time {
    */
   public static String formatTime(long millis, String format) {
     long v = millis;
-    String sign = "+";
     if (millis < 0) {
       v *= (-1);
-      sign = "-";
     }
 
     long days = v / 86400000;
@@ -345,11 +346,13 @@ public class Time {
       hours = v / 3600000;
       v -= hours * 3600000;
     }
+
     long minutes = 0;
     if (v >= 60000) {
       minutes = v / 60000;
       v -= (minutes * 60000);
     }
+
     long seconds = v / 1000;
     long f = v - seconds * 1000;
     long hours24 = hours - days * 24;
@@ -375,15 +378,30 @@ public class Time {
     String f3 = "00" + f;
     f3 = f3.substring(f3.length() - 3);
 
+    int signType = getSignType(format);
+
+    String sign = "";
+    if (signType == 1) {
+      if (millis < 0) {
+        sign = "-";
+      } else {
+        sign = "+";
+      }
+    } else if ((signType == -1) && (millis < 0)) {
+      sign = "-";
+    }
+
     String r = format;
     r = r.replace("D", d);
-    r = r.replace("sn", sign);
+    r = r.replace("-", sign);
+    r = r.replace("+", sign);
     r = r.replace("HR", hr);
     r = r.replace("HH24", hh24);
     r = r.replace("HH", hh);
     r = r.replace("mm", mm);
     r = r.replace("ss", ss);
     r = r.replace("SSS", f3);
+
     return r;
   }
 

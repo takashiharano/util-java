@@ -15,11 +15,15 @@ public class FormatTimeTest {
     test(3600000);
     test(86400000);
     test(171954123);
+
+    test(-171954123);
   }
 
   public static void test(long t) {
     Log.i(t + " = " + Time.formatTime(t, "HH:mm:ss.SSS"));
     Log.i(t + " = " + Time.formatTime(t, "DdHH24:mm:ss.SSS"));
+    Log.i(t + " = " + Time.formatTime(t, "-DdHH24:mm:ss.SSS"));
+    Log.i(t + " = " + Time.formatTime(t, "+DdHH24:mm:ss.SSS"));
   }
 
 }
