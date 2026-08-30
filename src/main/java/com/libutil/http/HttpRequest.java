@@ -422,11 +422,7 @@ public class HttpRequest {
   }
 
   private boolean isWritableMethod(String method) {
-    if ("POST".equals(method) || "PUT".equals(method) || "DELETE".equals(method)) {
-      return true;
-    } else {
-      return false;
-    }
+    return "POST".equals(method) || "PUT".equals(method) || "DELETE".equals(method);
   }
 
   /**
