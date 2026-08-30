@@ -248,7 +248,7 @@ public class Props {
       return false;
     }
     v = v.toLowerCase();
-    if (v.equals("") || v.equals("0") || v.equals("false")) {
+    if (v.isEmpty() || v.equals("0") || v.equalsIgnoreCase("false")) {
       return false;
     }
     return true;
