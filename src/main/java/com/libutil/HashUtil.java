@@ -32,6 +32,8 @@ import java.security.NoSuchAlgorithmException;
  */
 public class HashUtil {
 
+  private static final String HEX = "0123456789abcdef";
+
   /**
    * Returns hash string.
    *
@@ -93,9 +95,13 @@ public class HashUtil {
    */
   private static String toHexString(byte[] bytes) {
     StringBuilder sb = new StringBuilder(bytes.length * 2);
+
     for (byte b : bytes) {
-      sb.append(String.format("%02x", b & 0xff));
+      int v = b & 0xff;
+      sb.append(HEX.charAt(v >>> 4));
+      sb.append(HEX.charAt(v & 0x0f));
     }
+
     return sb.toString();
   }
 
