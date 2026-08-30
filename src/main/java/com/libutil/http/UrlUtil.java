@@ -135,18 +135,31 @@ public class UrlUtil {
    * @return baseUrl?param
    */
   public static String appendQuery(String baseUrl, String query) {
-    if ((baseUrl == null) || (query == null) || "".equals(query)) {
+    if ((baseUrl == null) || (query == null) || query.isEmpty()) {
       return baseUrl;
     }
+
+    int fragmentPos = baseUrl.indexOf('#');
+    String url = baseUrl;
+    String fragment = "";
+
+    if (fragmentPos != -1) {
+      url = baseUrl.substring(0, fragmentPos);
+      fragment = baseUrl.substring(fragmentPos);
+    }
+
     StringBuilder sb = new StringBuilder();
-    sb.append(baseUrl);
-    if (baseUrl.contains("?")) {
+    sb.append(url);
+    if (url.contains("?")) {
       sb.append("&");
     } else {
       sb.append("?");
     }
     sb.append(query);
-    return sb.toString();
+    sb.append(fragment);
+
+    String result = sb.toString();
+    return result;
   }
 
   /**
