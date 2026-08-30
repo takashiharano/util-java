@@ -31,8 +31,6 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * The class DateTime represents a specific instant in time, with millisecond
@@ -821,17 +819,15 @@ public class DateTime {
    *         null, otherwise (the ID cannot be understood) the GMT zone.
    */
   public static TimeZone getTimeZoneFromId(String id) {
-    TimeZone timezone;
     if (id == null) {
       return TimeZone.getDefault();
     }
 
-    Pattern p = Pattern.compile("^[+-].+$", 0);
-    Matcher m = p.matcher(id);
-    if (m.find()) {
+    if ((id.length() >= 2) && ((id.charAt(0) == '+') || (id.charAt(0) == '-'))) {
       id = "GMT" + id;
     }
-    timezone = TimeZone.getTimeZone(id);
+
+    TimeZone timezone = TimeZone.getTimeZone(id);
     return timezone;
   }
 
@@ -916,23 +912,21 @@ public class DateTime {
     if (s == null) {
       return null;
     }
+
     if (s.equals("Z")) {
       return "+0000";
     }
+
     s = s.replace(":", "");
 
-    Pattern p = Pattern.compile("^[+-].+", 0);
-    Matcher m = p.matcher(s);
-    if (!m.find()) {
+    if ((s.length() < 2) || ((s.charAt(0) != '+') && (s.charAt(0) != '-'))) {
       return null;
     }
 
     String sn = s.substring(0, 1);
     s = s.substring(1);
 
-    p = Pattern.compile("\\.", 0);
-    m = p.matcher(s);
-    if (m.find()) {
+    if (s.indexOf('.') != -1) {
       s = Time.hoursToClockString(s, "");
     }
 
@@ -995,11 +989,9 @@ public class DateTime {
     String w = sdt;
     w = w.trim();
     w = w.replaceAll("\\s{2,}", " ");
-    w = w.replaceAll("T", " ");
+    w = w.replace("T", " ");
 
-    Pattern p = Pattern.compile("[-/]");
-    Matcher m = p.matcher(w);
-    if (!m.find()) {
+    if ((w.indexOf('-') == -1) && (w.indexOf('/') == -1)) {
       return __serializeDateTime(w, tzId);
     }
 
