@@ -23,9 +23,6 @@
  */
 package com.libutil;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * The class Time represents a specific instant in time, with millisecond
  * precision.
@@ -437,21 +434,23 @@ public class Time {
    */
   public static String hoursToClockString(String hours, String separator) {
     String sign = "";
-    Pattern pt = Pattern.compile("^[+-]", 0);
-    Matcher mt = pt.matcher(hours);
-    if (mt.find()) {
+    if (hours.startsWith("+") || hours.startsWith("-")) {
       sign = hours.substring(0, 1);
       hours = hours.substring(1);
     }
+
     String[] w = hours.split("\\.");
     int h = Integer.parseInt(w[0]);
+
     float fM = 0.0f;
     if (w.length >= 2) {
       fM = Float.parseFloat("0." + w[1]);
     }
+
     int m = (int) (60 * fM);
     String hh = ((h < 10) ? "0" + Integer.toString(h) : Integer.toString(h));
     String mm = ((m < 10) ? "0" + Integer.toString(m) : Integer.toString(m));
+
     String clock = sign + hh + separator + mm;
     return clock;
   }
@@ -628,16 +627,14 @@ public class Time {
   }
 
   private static int getSignType(String s) {
-    Pattern p = Pattern.compile("\\+");
-    Matcher m = p.matcher(s);
-    if (m.find()) {
+    if (s.indexOf('+') != -1) {
       return 1;
     }
-    p = Pattern.compile("\\-");
-    m = p.matcher(s);
-    if (m.find()) {
+
+    if (s.indexOf('-') != -1) {
       return -1;
     }
+
     return 0;
   }
 
