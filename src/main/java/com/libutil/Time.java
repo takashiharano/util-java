@@ -493,7 +493,7 @@ public class Time {
     int pos = wk.indexOf(':');
     if (pos != -1) {
       hour = wk.substring(0, pos);
-      wk = wk.substring(pos + 1).replaceAll(":", "");
+      wk = wk.substring(pos + 1).replace(":", "");
     } else {
       hour = wk.substring(0, 2);
       wk = wk.substring(2);
