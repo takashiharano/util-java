@@ -26,6 +26,7 @@ package com.libutil;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -382,7 +383,7 @@ public class CommandExecutor {
   }
 
   private static String getDefaultCharset() {
-    String osName = System.getProperty("os.name").toLowerCase();
+    String osName = System.getProperty("os.name").toLowerCase(Locale.ROOT);
 
     if (osName.startsWith("windows")) {
       return DEFAULT_CHARSET_WINDOWS;

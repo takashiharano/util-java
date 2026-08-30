@@ -33,6 +33,7 @@ import java.net.HttpURLConnection;
 import java.net.Proxy;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Map.Entry;
 
 import com.libutil.Base64Util;
@@ -61,7 +62,7 @@ public class HttpRequest {
 
   public HttpRequest(String url, String method) {
     this.url = url;
-    this.method = method.toUpperCase();
+    this.method = method.toUpperCase(Locale.ROOT);
   }
 
   public HttpRequest(String uri, String method, Proxy proxy) {

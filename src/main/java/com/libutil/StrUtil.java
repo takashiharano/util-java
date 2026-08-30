@@ -29,6 +29,7 @@ import java.net.URLEncoder;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -2527,7 +2528,7 @@ public class StrUtil {
    * @return Index corresponding to a character (1-16384)
    */
   public static int xlscol(String s) {
-    return (int) StringPermutation.getIndex("ABCDEFGHIJKLMNOPQRSTUVWXYZ", s.toUpperCase());
+    return (int) StringPermutation.getIndex("ABCDEFGHIJKLMNOPQRSTUVWXYZ", s.toUpperCase(Locale.ROOT));
   }
 
   /**
