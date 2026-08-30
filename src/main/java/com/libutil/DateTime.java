@@ -509,7 +509,7 @@ public class DateTime {
    * @param format
    *          "yyyy-MM-dd'T'HH:mm:ss.SSSXXX" to
    *          "2019-07-13T12:34:56.987+09:00"<br>
-   *          "yyyyMMdd'T'HHmmssSSSXX" to "20190713T123456.987+0900"
+   *          "yyyyMMdd'T'HHmmss.SSSXX" to "20190713T123456.987+0900"
    * @return the date-time string
    */
   public String toString(String format) {
@@ -764,8 +764,7 @@ public class DateTime {
    * Returns the midnight timestamp for the given moment.
    *
    * @param moment
-   *          the moment (e.g., "20220120T1234546.789",
-   *          "20220120T1234546.789+0900")
+   *          the moment (e.g., "20220120T123456.789", "20220120T123456.789+0900")
    * @return the midnight timestamp
    */
   public static long getMidnightTimestamp(String moment) {
@@ -1182,7 +1181,7 @@ public class DateTime {
    * @param format
    *          "yyyy-MM-dd'T'HH:mm:ss.SSSXXX" to
    *          "2019-07-13T12:34:56.987+09:00"<br>
-   *          "yyyyMMdd'T'HHmmssSSSXX" to "20190713T123456.987+0900"
+   *          "yyyyMMdd'T'HHmmss.SSSXX" to "20190713T123456.987+0900"
    * @return the date-time string
    */
   public static String toString(Date date, String format) {
