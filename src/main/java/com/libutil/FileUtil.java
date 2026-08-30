@@ -84,7 +84,7 @@ public class FileUtil {
    *           If an I/O error occurs
    */
   public static void appendLine(String path, String newLine, int maxLines) throws IOException {
-    if (maxLines == 0) {
+    if ((maxLines == 0) || !exists(path)) {
       try (FileOutputStream fos = new FileOutputStream(path, true); OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8"); BufferedWriter bw = new BufferedWriter(osw)) {
         bw.write(newLine);
         bw.write(LINE_SEPARATOR);
@@ -93,6 +93,10 @@ public class FileUtil {
     }
 
     String[] lines = readTextAsArray(path);
+    if (lines == null) {
+      throw new IOException("Failed to read file: " + path);
+    }
+
     int start = 0;
     if (lines.length >= maxLines) {
       start = lines.length - (maxLines - 1);
@@ -100,10 +104,10 @@ public class FileUtil {
 
     StringBuilder newContent = new StringBuilder();
     for (int i = start; i < lines.length; i++) {
-      newContent.append(lines[i] + LINE_SEPARATOR);
+      newContent.append(lines[i]).append(LINE_SEPARATOR);
     }
 
-    newContent.append(newLine + LINE_SEPARATOR);
+    newContent.append(newLine).append(LINE_SEPARATOR);
     write(path, newContent.toString());
   }
 
