@@ -321,6 +321,13 @@ public class HttpRequest {
       response = _send(data);
       int status = response.getStatus();
       if ((status >= 300) && (status <= 399) && redirect) {
+        if (status == 303) {
+          if (!"HEAD".equals(method)) {
+            method = "GET";
+          }
+          data = null;
+        }
+
         response = send(data, response);
       }
     } catch (Exception e) {
