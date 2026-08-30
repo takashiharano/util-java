@@ -198,13 +198,14 @@ public class Time {
   }
 
   /**
-   * To string the time with unit.
+   * Converts the time to a string with units.
    *
    * @param byHours
-   *          -ge 24h instead of days. true: 47h 45m 59s
+   *          true to display 24 hours or more as hours instead of days, e.g.,
+   *          "47h 45m 59s"
    * @param f
-   *          to display millis. true: 1d 23h 45m 59s 123
-   * @return the time string
+   *          true to display milliseconds, e.g., "1d 23h 45m 59s 123ms"
+   * @return the formatted time string
    */
   public String toStringWithUnit(boolean byHours, boolean f) {
     StringBuilder sb = new StringBuilder();
