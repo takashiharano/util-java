@@ -1078,19 +1078,34 @@ public class DateTime {
   }
 
   private static int getTzPos(String s) {
-    int p = s.indexOf("Z");
-    if (p != -1) {
-      return p;
+    int plusCount = 0;
+    int minusCount = 0;
+    int plusPos = -1;
+    int minusPos = -1;
+
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
+
+      if (c == 'Z') {
+        return i;
+      } else if (c == '+') {
+        plusCount++;
+        plusPos = i;
+      } else if (c == '-') {
+        minusCount++;
+        minusPos = i;
+      }
     }
-    int cnt = StrUtil.countPattern(s, "\\+");
-    if (cnt == 1) {
-      return s.lastIndexOf("+");
+
+    if (plusCount == 1) {
+      return plusPos;
     }
-    cnt = StrUtil.countPattern(s, "-");
-    if (cnt == 2) {
+
+    if (minusCount == 2) {
       return -1;
     }
-    return s.lastIndexOf("-");
+
+    return minusPos;
   };
 
   /**
