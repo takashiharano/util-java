@@ -306,14 +306,18 @@ public class HttpRequest {
   }
 
   private HttpResponse send(String data, HttpResponse response) {
-    if (response != null) {
-      String location = response.getHeaderValue("Location");
-      if (location == null) {
-        return response;
-      }
-      this.url = location;
-    }
     try {
+      if (response != null) {
+        String location = response.getHeaderValue("Location");
+        if (location == null) {
+          return response;
+        }
+
+        URL baseUrl = new URL(this.url);
+        URL redirectUrl = new URL(baseUrl, location);
+        this.url = redirectUrl.toString();
+      }
+
       response = _send(data);
       int status = response.getStatus();
       if ((status >= 300) && (status <= 399) && redirect) {
@@ -324,6 +328,7 @@ public class HttpRequest {
       response.setStatus(0);
       response.setErrorDetail(e);
     }
+
     return response;
   }
 
