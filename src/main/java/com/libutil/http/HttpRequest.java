@@ -38,7 +38,7 @@ import java.util.Map.Entry;
 import com.libutil.Base64Util;
 
 /**
- * The class HttpRequest represents a HTTP request.
+ * The class HttpRequest represents an HTTP request.
  */
 public class HttpRequest {
 
