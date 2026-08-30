@@ -14,6 +14,7 @@ public class HttpGetTest {
     String q = "aaa=bbb";
 
     HttpRequest req = new HttpRequest(url);
+    req.setRedirect(true);
     HttpResponse res = req.send(q);
 
     int status = res.getStatus();

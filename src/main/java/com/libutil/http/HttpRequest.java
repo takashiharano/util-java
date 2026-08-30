@@ -42,6 +42,8 @@ import com.libutil.Base64Util;
  */
 public class HttpRequest {
 
+  private static final int MAX_REDIRECTS = 20;
+
   private String url;
   private String method;
   private RequestHeaders requestHeaders;
@@ -127,12 +129,16 @@ public class HttpRequest {
       }
     }
 
-    return send(data, null);
+    return send(data, null, 0);
   }
 
-  private HttpResponse send(String data, HttpResponse response) {
+  private HttpResponse send(String data, HttpResponse response, int redirectCount) {
     try {
       if (response != null) {
+        if (redirectCount > MAX_REDIRECTS) {
+          throw new IOException("Too many redirects");
+        }
+
         String location = response.getHeaderValue("Location");
         if (location == null) {
           return response;
@@ -153,7 +159,7 @@ public class HttpRequest {
           data = null;
         }
 
-        response = send(data, response);
+        response = send(data, response, redirectCount + 1);
       }
     } catch (Exception e) {
       response = new HttpResponse();
