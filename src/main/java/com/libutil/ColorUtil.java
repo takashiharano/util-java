@@ -30,6 +30,8 @@ import java.util.Arrays;
  */
 public class ColorUtil {
 
+  private static final String HEX = "0123456789abcdef";
+
   /**
    * Converts RGB to #RGB.
    *
@@ -172,20 +174,27 @@ public class ColorUtil {
    * @return [R, G, B]
    */
   public static String[] rgb10to16(int r, int g, int b) {
-    String r16 = String.format("%02x", Integer.valueOf(r));
-    String g16 = String.format("%02x", Integer.valueOf(g));
-    String b16 = String.format("%02x", Integer.valueOf(b));
-    String r0 = r16.substring(0, 1);
-    String r1 = r16.substring(1, 2);
-    String g0 = g16.substring(0, 1);
-    String g1 = g16.substring(1, 2);
-    String b0 = b16.substring(0, 1);
-    String b1 = b16.substring(1, 2);
-    if ((r0.equals(r1)) && (g0.equals(g1)) && (b0.equals(b1))) {
-      r16 = r0;
-      g16 = g0;
-      b16 = b0;
+    char r0 = HEX.charAt((r >>> 4) & 0x0f);
+    char r1 = HEX.charAt(r & 0x0f);
+    char g0 = HEX.charAt((g >>> 4) & 0x0f);
+    char g1 = HEX.charAt(g & 0x0f);
+    char b0 = HEX.charAt((b >>> 4) & 0x0f);
+    char b1 = HEX.charAt(b & 0x0f);
+
+    String r16;
+    String g16;
+    String b16;
+
+    if ((r0 == r1) && (g0 == g1) && (b0 == b1)) {
+      r16 = String.valueOf(r0);
+      g16 = String.valueOf(g0);
+      b16 = String.valueOf(b0);
+    } else {
+      r16 = new String(new char[] { r0, r1 });
+      g16 = new String(new char[] { g0, g1 });
+      b16 = new String(new char[] { b0, b1 });
     }
+
     String[] rgb = { r16, g16, b16 };
     return rgb;
   }
