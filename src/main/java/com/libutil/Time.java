@@ -487,8 +487,8 @@ public class Time {
     String sec;
     String msec = "000";
     String wk = str;
-    String[] prt;
     boolean sign = false;
+
     if (wk.charAt(0) == '+') {
       wk = wk.substring(1);
     } else if (wk.charAt(0) == '-') {
@@ -496,19 +496,19 @@ public class Time {
       wk = wk.substring(1);
     }
 
-    if (wk.indexOf("d") != -1) {
-      prt = wk.split("d");
-      day = prt[0];
-      wk = prt[1];
+    int pos = wk.indexOf('d');
+    if (pos != -1) {
+      day = wk.substring(0, pos);
+      wk = wk.substring(pos + 1);
     }
 
-    if (wk.indexOf(".") != -1) {
-      prt = wk.split("\\.");
-      wk = prt[0];
-      msec = (prt[1] + "000").substring(0, 3);
+    pos = wk.indexOf('.');
+    if (pos != -1) {
+      msec = (wk.substring(pos + 1) + "000").substring(0, 3);
+      wk = wk.substring(0, pos);
     }
 
-    int pos = wk.indexOf(':');
+    pos = wk.indexOf(':');
     if (pos != -1) {
       hour = wk.substring(0, pos);
       wk = wk.substring(pos + 1).replace(":", "");
@@ -529,8 +529,9 @@ public class Time {
 
     long ms = (days * DAY) + (hours * HOUR) + (minutes * MINUTE) + seconds * SECOND + milliseconds;
     if (sign) {
-      ms *= (-1);
+      ms *= -1;
     }
+
     return ms;
   }
 
