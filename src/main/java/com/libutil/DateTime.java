@@ -636,7 +636,7 @@ public class DateTime {
       if (!abs)
         sign = -1;
     }
-    int days = (int) Math.floor(d / 86400000) * sign;
+    int days = (int) (d / DAY) * sign;
     return days;
   }
 
@@ -676,7 +676,7 @@ public class DateTime {
       if (!abs)
         sign = -1;
     }
-    int days = (int) Math.floor(d / 86400000) * sign;
+    int days = (int) (d / DAY) * sign;
     return days;
   }
 
@@ -1165,7 +1165,7 @@ public class DateTime {
    *          the pattern describing the date and time format
    *          "yyyy-MM-dd'T'HH:mm:ss.SSSXXX" to
    *          "2020-07-01T12:34:56.987+09:00"<br>
-   *          "yyyyMMdd'T'HHmmssSSSXX" to "20190701T123456.987+0900"
+   *          "yyyyMMdd'T'HHmmss.SSSXX" to "20190701T123456.987+0900"
    * @return the formatted date-time string
    */
   public static String toString(long timestamp, String format) {
@@ -1198,7 +1198,7 @@ public class DateTime {
    *          the pattern describing the date and time format
    *          "yyyy-MM-dd'T'HH:mm:ss.SSSXXX" to
    *          "2021-07-01T12:34:56.987+09:00"<br>
-   *          "yyyyMMdd'T'HHmmssSSSXX" to<br>
+   *          "yyyyMMdd'T'HHmmss.SSSXX" to<br>
    *          "20210701T123456.987+0900"
    * @return the formatted date-time string
    */
