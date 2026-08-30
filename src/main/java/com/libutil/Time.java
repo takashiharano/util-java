@@ -24,8 +24,7 @@
 package com.libutil;
 
 /**
- * The class Time represents a specific instant in time, with millisecond
- * precision.
+ * The class Time represents a duration with millisecond precision.
  */
 public class Time {
 
@@ -389,18 +388,18 @@ public class Time {
   }
 
   /**
-   * Converts a decimal hours into a clock-like string.
+   * Converts decimal hours into a clock-like string.
    *
    * @param hours
    *          hours (e.g., -8.0, 9.5)
-   * @return clock-like string like "-0800", "0930"
+   * @return clock-like string like "-08:00", "09:30"
    */
   public static String hoursToClockString(float hours) {
     return hoursToClockString(hours, ":");
   }
 
   /**
-   * Converts a decimal hours into a clock-like string.
+   * Converts decimal hours into a clock-like string.
    *
    * @param hours
    *          hours (e.g., -8.0, 9.5)
@@ -414,21 +413,21 @@ public class Time {
   }
 
   /**
-   * Converts a decimal hours into a clock-like string.
+   * Converts decimal hours into a clock-like string.
    *
    * @param hours
-   *          a float value (e.g., "-8.0", "9.0", "+9.5")
-   * @return clock-like string (e.g., "-0800", "0900", "+0930")
+   *          decimal hours (e.g., "-8.0", "9.0", "+9.5")
+   * @return clock-like string (e.g., "-08:00", "09:00", "+09:30")
    */
   public static String hoursToClockString(String hours) {
     return hoursToClockString(hours, ":");
   }
 
   /**
-   * Converts a decimal hours into a clock-like string.
+   * Converts decimal hours into a clock-like string.
    *
    * @param hours
-   *          a float value (e.g., "-8.0", "9.0", "+9.5")
+   *          decimal hours (e.g., "-8.0", "9.0", "+9.5")
    * @param separator
    *          separator of the hours and the minutes
    * @return clock-like string (e.g., "-0800", "0900", "+0930")
@@ -560,7 +559,7 @@ public class Time {
   }
 
   /**
-   * To string the time with unit.<br>
+   * Converts the time to a string with units.<br>
    * e.g., 171959000 to "1d 23h 45m 59s"
    *
    * @param millis
@@ -572,7 +571,7 @@ public class Time {
   }
 
   /**
-   * To string the time with unit.<br>
+   * Converts the time to a string with units.<br>
    * e.g., 171959000 to "1d 23h 45m 59s"
    *
    * @param millis
