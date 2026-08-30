@@ -24,7 +24,6 @@
 package com.libutil;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
@@ -1116,11 +1115,9 @@ public class DateTime {
    * @return milliseconds
    */
   public static long secToMillis(double sec) {
-    BigDecimal bd = new BigDecimal(sec);
-    bd = bd.setScale(3, RoundingMode.DOWN);
-    double d = bd.doubleValue();
-    double v = d * 1000;
-    long unixmillis = (long) v;
+    BigDecimal bd = BigDecimal.valueOf(sec);
+    BigDecimal millis = bd.movePointRight(3);
+    long unixmillis = millis.longValue();
     return unixmillis;
   }
 
