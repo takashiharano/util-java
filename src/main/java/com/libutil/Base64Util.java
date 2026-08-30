@@ -27,14 +27,14 @@ import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
 /**
- * This class implements the Base64 encode and decode.
+ * This class implements Base64 encoding and decoding.
  */
 public class Base64Util {
 
   public static final String DEFAULT_CHARSET = "UTF-8";
 
   /**
-   * Decodes a Base64 encoded String into a newly-allocated byte array.
+   * Decodes a Base64-encoded string into a newly-allocated byte array.
    *
    * @param src
    *          the string to decode
@@ -50,7 +50,7 @@ public class Base64Util {
   }
 
   /**
-   * Decodes a Base64 encoded String into a string.
+   * Decodes a Base64-encoded string into a string.
    *
    * @param src
    *          the string to decode
@@ -61,7 +61,7 @@ public class Base64Util {
   }
 
   /**
-   * Decodes a Base64 encoded String into a string.
+   * Decodes a Base64-encoded string into a string.
    *
    * @param src
    *          the string to decode
@@ -89,8 +89,7 @@ public class Base64Util {
    *
    * @param src
    *          the byte array to encode
-   * @return A String containing the resulting Base64 encoded characters. Returns
-   *         null for null input.
+   * @return the Base64 encoded string. Returns null for null input.
    */
   public static String encode(byte[] src) {
     if (src == null) {
@@ -101,28 +100,25 @@ public class Base64Util {
   }
 
   /**
-   * Encodes the specified byte array into a String using the Base64 encoding
-   * scheme.
+   * Encodes the specified string using the Base64 encoding scheme.
    *
    * @param src
    *          the string to encode
-   * @return A String containing the resulting Base64 encoded characters. Returns
-   *         null for null input.
+   * @return the Base64 encoded string. Returns null for null input.
    */
   public static String encode(String src) {
     return encode(src, DEFAULT_CHARSET);
   }
 
   /**
-   * Encodes the specified byte array into a String using the Base64 encoding
-   * scheme.
+   * Encodes the specified string using the Base64 encoding scheme with the
+   * specified character encoding.
    *
    * @param src
    *          the string to encode
    * @param charsetName
-   *          charset name
-   * @return A String containing the resulting Base64 encoded characters. Returns
-   *         null for null input.
+   *          the name of the character encoding
+   * @return the Base64 encoded string. Returns null for null input.
    */
   public static String encode(String src, String charsetName) {
     if (src == null) {
