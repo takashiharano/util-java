@@ -1207,7 +1207,6 @@ public class FileUtil {
    *           If an I/O error occurs
    */
   public static void write(File file, String content) throws IOException {
-    mkParentDir(file);
     write(file, content, DEFAULT_CHARSET);
   }
 
