@@ -236,7 +236,6 @@ public class FileUtil {
     File srcFile = new File(src);
     File destFile = new File(dest);
 
-    boolean hasError = false;
     dest = dest.replace("\\", "/");
     if (destFile.isDirectory() || dest.endsWith("/")) {
       String srcFileName = srcFile.getName();
@@ -248,12 +247,8 @@ public class FileUtil {
 
     mkParentDir(dest);
     boolean copied = copyFile(from, to, replaceExisting);
-    boolean ret = false;
-    if (copied && !hasError) {
-      ret = true;
-    }
 
-    return ret;
+    return copied;
   }
 
   private static boolean copyFile(Path from, Path to, boolean replaceExisting) {
