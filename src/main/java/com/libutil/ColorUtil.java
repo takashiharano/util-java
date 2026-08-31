@@ -298,10 +298,9 @@ public class ColorUtil {
   }
 
   private static int[] sortRGB(int r, int g, int b) {
-    Integer w[] = { r, g, b };
-    Arrays.sort(w);
-    int[] a = { w[0], w[1], w[2] };
-    return a;
+    int[] values = { r, g, b };
+    Arrays.sort(values);
+    return values;
   }
 
 }
