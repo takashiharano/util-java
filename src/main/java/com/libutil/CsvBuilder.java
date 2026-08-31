@@ -442,7 +442,7 @@ public class CsvBuilder {
     }
     if (shouldQuote) {
       value = quoteString(value, quotation, escape);
-    } else if (value.contains("\r\n") || value.contains("\n") || value.contains("\r") || value.contains(quotation) || value.contains(separator)) {
+    } else if (value.contains("\n") || value.contains("\r") || value.contains(quotation) || value.contains(separator)) {
       value = quoteString(value, quotation, escape);
     }
     buffer.append(value);
