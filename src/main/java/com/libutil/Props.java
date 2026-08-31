@@ -239,8 +239,8 @@ public class Props {
    *
    * @param key
    *          the key of the value
-   * @return A zero value, "false", "", null, are converted to false; any other
-   *         value is converted to true. The value is case-insensitive.
+   * @return false if the value is "0", "false", an empty string, or null; true
+   *         otherwise. The comparison with "false" is case-insensitive.
    */
   public boolean getValueAsBoolean(String key) {
     String v = getValue(key);

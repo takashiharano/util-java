@@ -532,7 +532,7 @@ public class FileUtil {
    * e.g., "C:/test/abc.txt" to "txt"
    *
    * @param path
-   *          file path (absolute or related)
+   *          file path (absolute or relative)
    * @return file extension
    */
   public static String getExtension(String path) {
@@ -628,7 +628,7 @@ public class FileUtil {
    * pathname's name sequence except for the last. If the name sequence is empty
    * then the pathname does not name a parent directory.
    *
-   * e.g., "a/b/c.txt" to "/a/b"
+   * e.g., "a/b/c.txt" to "a/b"
    *
    * @param path
    *          file path
@@ -641,10 +641,10 @@ public class FileUtil {
 
   /**
    * Returns parent path of the file.<br>
-   * e.g., "a/b/c.txt" to "/a/b"
+   * e.g., "a/b/c.txt" to "a/b"
    *
    * @param file
-   *          an file object
+   *          a file object
    * @return parent path
    */
   public static String getParentPath(File file) {
@@ -685,7 +685,7 @@ public class FileUtil {
    * 
    * @param path
    *          the target path
-   * @return an file object array
+   * @return a file object array
    */
   public static File[] listFiles(String path) {
     File file = new File(path);
