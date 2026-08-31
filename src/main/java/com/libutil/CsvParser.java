@@ -297,14 +297,7 @@ public class CsvParser {
   }
 
   private boolean isLastLineEmpty(String s) {
-    if (s.length() <= 2) {
-      return false;
-    }
-    String last = s.substring(s.length() - 2);
-    if (quotedEmpty.equals(last)) {
-      return true;
-    }
-    return false;
+    return s.endsWith(quotedEmpty);
   }
 
   private boolean isQuotedProperly(String s, int len, int pos, int quotCount) {
