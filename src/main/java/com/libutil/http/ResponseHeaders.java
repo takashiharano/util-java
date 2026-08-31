@@ -30,6 +30,38 @@ public class ResponseHeaders extends HashMap<String, List<String>> {
 
   private static final long serialVersionUID = 1L;
 
+  @Override
+  public boolean containsKey(Object key) {
+    if (!(key instanceof String)) {
+      return super.containsKey(key);
+    }
+
+    String name = (String) key;
+    for (Entry<String, List<String>> entry : entrySet()) {
+      String fieldName = entry.getKey();
+      if ((fieldName != null) && fieldName.equalsIgnoreCase(name)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @Override
+  public List<String> get(Object key) {
+    if (!(key instanceof String)) {
+      return super.get(key);
+    }
+
+    String name = (String) key;
+    for (Entry<String, List<String>> entry : entrySet()) {
+      String fieldName = entry.getKey();
+      if ((fieldName != null) && fieldName.equalsIgnoreCase(name)) {
+        return entry.getValue();
+      }
+    }
+    return null;
+  }
+
   /**
    * Returns whether a header field corresponding to the given name exists.
    *
@@ -38,7 +70,7 @@ public class ResponseHeaders extends HashMap<String, List<String>> {
    * @return true if the field exists; false otherwise
    */
   public boolean has(String name) {
-    return this.containsKey(name);
+    return containsKey(name);
   }
 
 }
