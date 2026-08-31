@@ -46,7 +46,12 @@ public class RequestHeaders extends LinkedHashMap<String, String> {
    * @return true if the field exists; false otherwise
    */
   public boolean has(String name) {
-    return this.containsKey(name);
+    for (String fieldName : keySet()) {
+      if (fieldName.equalsIgnoreCase(name)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -56,7 +61,7 @@ public class RequestHeaders extends LinkedHashMap<String, String> {
    * NOTE: HTTP requires all request properties which can legally have multiple
    * instances with the same key to use a comma-separated list syntax which
    * enables multiple properties to be appended into a single property.
-   * 
+   *
    * @param name
    *          the keyword by which the request is known(e.g., "Accept").<br>
    * @param value

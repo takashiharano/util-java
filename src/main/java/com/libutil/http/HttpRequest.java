@@ -312,7 +312,7 @@ public class HttpRequest {
    * Returns if the request header contains the given field name.
    *
    * @param name
-   *          field name (case-sensitive)
+   *          field name
    * @return true if exists
    */
   public boolean hasHeader(String name) {
