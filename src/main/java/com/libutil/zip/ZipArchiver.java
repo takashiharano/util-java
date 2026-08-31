@@ -41,6 +41,7 @@ import java.util.zip.ZipOutputStream;
  */
 public class ZipArchiver {
 
+  private static final String ZIP_SEPARATOR = "/";
   private static final int BUF_SIZE = 1048576;
 
   private List<File> files;
@@ -105,7 +106,7 @@ public class ZipArchiver {
   }
 
   public byte[] compressOnMemory() {
-    try (ByteArrayOutputStream out = new ByteArrayOutputStream(); ZipOutputStream zos = new ZipOutputStream(out);) {
+    try (ByteArrayOutputStream out = new ByteArrayOutputStream(); ZipOutputStream zos = new ZipOutputStream(out)) {
       if (level != -1) {
         zos.setLevel(level);
       }
@@ -131,7 +132,6 @@ public class ZipArchiver {
   }
 
   private void addZipEntry(ZipOutputStream zos, File file) throws IOException {
-    String sepChar = File.separator;
     String itemPath;
     if (topLevelDirPath == null) {
       itemPath = file.getName();
@@ -139,15 +139,17 @@ public class ZipArchiver {
       itemPath = file.getAbsolutePath().replace(topLevelDirPath, "");
     }
 
-    String entryName;
+    itemPath = itemPath.replace(File.separatorChar, '/');
+
+    if (itemPath.startsWith(ZIP_SEPARATOR)) {
+      itemPath = itemPath.substring(1);
+    }
+
+    String entryName = itemPath;
     if (file.isDirectory()) {
-      entryName = itemPath + sepChar;
-    } else {
-      entryName = itemPath;
+      entryName += ZIP_SEPARATOR;
     }
-    if (entryName.startsWith(sepChar)) {
-      entryName = entryName.substring(1);
-    }
+
     ZipEntry entry = new ZipEntry(entryName);
 
     long lastModified = file.lastModified();
@@ -155,15 +157,15 @@ public class ZipArchiver {
     zos.putNextEntry(entry);
 
     if (!file.isDirectory()) {
-      try (InputStream is = new BufferedInputStream(new FileInputStream(file));) {
+      try (InputStream is = new BufferedInputStream(new FileInputStream(file))) {
         byte[] buf = new byte[BUF_SIZE];
-        int len = 0;
+        int len;
         while ((len = is.read(buf)) != -1) {
           zos.write(buf, 0, len);
         }
-        is.close();
       }
     }
+
     zos.closeEntry();
   }
 
