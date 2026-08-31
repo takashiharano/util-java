@@ -97,8 +97,11 @@ public class ZipArchiver {
       if (level != -1) {
         zos.setLevel(level);
       }
+
+      byte[] buf = new byte[BUF_SIZE];
+
       for (File file : files) {
-        addZipEntry(zos, file);
+        addZipEntry(zos, file, buf);
       }
     } catch (IOException e) {
       throw new RuntimeException(e);
@@ -106,13 +109,17 @@ public class ZipArchiver {
   }
 
   public byte[] compressOnMemory() {
-    try (ByteArrayOutputStream out = new ByteArrayOutputStream(); ZipOutputStream zos = new ZipOutputStream(out)) {
+    try (ByteArrayOutputStream out = new ByteArrayOutputStream(); ZipOutputStream zos = new ZipOutputStream(out);) {
       if (level != -1) {
         zos.setLevel(level);
       }
+
+      byte[] buf = new byte[BUF_SIZE];
+
       for (File file : files) {
-        addZipEntry(zos, file);
+        addZipEntry(zos, file, buf);
       }
+
       zos.close();
       out.close();
       byte[] b = out.toByteArray();
@@ -131,7 +138,7 @@ public class ZipArchiver {
     this.level = level;
   }
 
-  private void addZipEntry(ZipOutputStream zos, File file) throws IOException {
+  private void addZipEntry(ZipOutputStream zos, File file, byte[] buf) throws IOException {
     String itemPath;
     if (topLevelDirPath == null) {
       itemPath = file.getName();
@@ -158,7 +165,6 @@ public class ZipArchiver {
 
     if (!file.isDirectory()) {
       try (InputStream is = new BufferedInputStream(new FileInputStream(file))) {
-        byte[] buf = new byte[BUF_SIZE];
         int len;
         while ((len = is.read(buf)) != -1) {
           zos.write(buf, 0, len);
